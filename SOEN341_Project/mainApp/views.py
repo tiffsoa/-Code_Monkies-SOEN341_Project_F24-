@@ -42,6 +42,8 @@ def login_view(request):
             user = MyUser.objects.get(username=username) #If a match exists, we store the object of that match in user
             request.session['user_id'] = user.id # And then we want to save the logged in user's id, so we store it in our 'session' dictionary (each user has a unique one)
             request.session['username']= user.username
+            if user.type=="instructor":
+                return redirect('instructorHomePage')
             return redirect('home') # and now we redirect to our 'home' view
     else:
         #If a user wasn't found, we send the user back to the login page
