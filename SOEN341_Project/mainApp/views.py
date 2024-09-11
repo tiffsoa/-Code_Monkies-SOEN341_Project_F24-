@@ -50,4 +50,4 @@ def login_view(request):
 
 def home_view(request):
     #Should add code such that only logged in users (those who we added a user_id in their session dictionary) can view this page
-    return HttpResponse("Home page")
+    return render(request,'mainApp/home.html',{})
