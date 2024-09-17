@@ -11,3 +11,4 @@ class MyUser(models.Model):
  password = models.CharField(max_length=255)
 
  ##Test
+ ## mohammed test
