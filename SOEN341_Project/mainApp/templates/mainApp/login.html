@@ -14,6 +14,8 @@
     {% if session.username %} <!--This is just here to demonstrate how we can use variables sent in the context. Remove once read! -->
     Hello, {{session.username }}
     {% endif %}
+
+    
     <form method="post">
         {% csrf_token %}
         <label for="username">Username:</label><br>
