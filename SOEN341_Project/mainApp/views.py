@@ -45,6 +45,8 @@ def login_view(request):
             if user.type=="instructor":
                 return redirect('instructorHomePage')
             return redirect('home') # and now we redirect to our 'home' view
+        else:
+            return render(request, 'mainApp/login.html', {'error': 'Username and password dont match'})
     else:
         #If a user wasn't found, we send the user back to the login page
         #We should return an error message too!
