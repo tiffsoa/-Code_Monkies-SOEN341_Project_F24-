@@ -11,7 +11,7 @@
 <!-- Before Django sends the HTML file to the user's screen, we have the ability to insert Python code which Django will-->
 <!-- fill in before sending the file over. For example, if we set the current user's name in one of our views, we can-->
 <!-- write it in our template and Django will fill in the blanks-->
-    {% if session.username %}
+    {% if session.username %} <!--This is just here to demonstrate how we can use variables sent in the context. Remove once read! -->
     Hello, {{session.username }}
     {% endif %}
     <form method="post">

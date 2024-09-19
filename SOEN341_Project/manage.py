@@ -3,6 +3,9 @@
 import os
 import sys
 
+#manage.py allows us to run special commands for database migrations, 
+#to run python server, creating users for our Django admin panel...
+
 
 def main():
     """Run administrative tasks."""
