@@ -9,3 +9,12 @@ We aim to build a website destined for students and professors, and that is to b
  - Automated Score Sharing and Anonymous Peer Feedback: professor can see each student's overall assessment of their teammates, each student's evaluation results are shared with them
     
 - Instructor Dashboard: instructors can create teams and access the assessments by team/by student, results can be converted to CSV files 
+
+Roles:
+
+- Valeria Rosca #40297230 : Frontend
+- Tiffany Soa Andriamiharimanana #40283866: Backend
+- Mohammed Janoudi #40252494: Full stack
+- Joseph Keshishian #40297447: Backend
+- Samuel Richard #40262098: Backend
+- Talar Mustafa #40284214: Frontend
