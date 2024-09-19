@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import MyUser
 
+#this is the main file we will work on
+#here, we will create different views or routes that we can access on our website
+
 #This page has all the functions whose job is to return an HTML page when executed.
 #Note that all variables which we want to keep attributed to a certain user is saved in the dictionary "session" https://reintech.io/blog/working-with-sessions-in-django-tutorial
 
