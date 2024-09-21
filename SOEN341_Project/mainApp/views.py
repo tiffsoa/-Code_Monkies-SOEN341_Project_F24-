@@ -9,27 +9,28 @@ from .models import MyUser
 #This page has all the functions whose job is to return an HTML page when executed.
 #Note that all variables which we want to keep attributed to a certain user is saved in the dictionary "session" https://reintech.io/blog/working-with-sessions-in-django-tutorial
 
-def register(request):
-    if request.method == 'POST':
-        # Extract data from the HTML form
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        confirm_password = request.POST.get('confirm_password')
+# Prevous register view:
+# def register(request):
+#     if request.method == 'POST':
+#         # Extract data from the HTML form
+#         username = request.POST.get('username')
+#         password = request.POST.get('password')
+#         confirm_password = request.POST.get('confirm_password')
 
-        # Validate data
-        if password != confirm_password:
-            return HttpResponse("Passwords do not match.") #Instead of doing this, we should return this message as part of context!
-        #This line below checks each row of the MyUser table for a matching username
-        if MyUser.objects.filter(username=username).exists():
-            return HttpResponse("Username already exists.") #Return this message with page
+#         # Validate data
+#         if password != confirm_password:
+#             return HttpResponse("Passwords do not match.") #Instead of doing this, we should return this message as part of context!
+#         #This line below checks each row of the MyUser table for a matching username
+#         if MyUser.objects.filter(username=username).exists():
+#             return HttpResponse("Username already exists.") #Return this message with page
 
-        # Create user. This adds a new row to our database
-        User(username=username,password=password).save()
-        #To see all possible table methods, https://docs.djangoproject.com/en/5.1/topics/db/queries/
-        return redirect('login')  # Redirect to login page after registration. Should add a success message too!
-    else:
-        #If the the request's method wasn't post (i.e. the user wasn't filling in a form) just generate the page
-        return render(request, 'mainApp/register.html', {'session':request.session}) # This returns to the user (request) the html file (mainApp/register.html) along with the data saved ('session') which we can use in register.html
+#         # Create user. This adds a new row to our database
+#         User(username=username,password=password).save()
+#         #To see all possible table methods, https://docs.djangoproject.com/en/5.1/topics/db/queries/
+#         return redirect('login')  # Redirect to login page after registration. Should add a success message too!
+#     else:
+#         #If the the request's method wasn't post (i.e. the user wasn't filling in a form) just generate the page
+#         return render(request, 'mainApp/register.html', {'session':request.session}) # This returns to the user (request) the html file (mainApp/register.html) along with the data saved ('session') which we can use in register.html
 
 
 def login_view(request):
