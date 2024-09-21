@@ -61,3 +61,32 @@ def instructor_home_view(request):
 
 def student_home_view(request):
     return render(request,'mainApp/studentHome.html',{})
+
+
+def register(request): #Janoudi for the instructor register 
+    if request.method == 'POST':
+        # Extract data from the HTML form
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+        email = request.POST.get('email')
+        name = request.POST.get('name')
+        instructor = request.POST.get('instructor') == 'on'  # assuming checkbox for instructor
+        
+        # Validate data
+        if password != confirm_password:
+            return render(request, 'mainApp/register.html', {'error': 'Passwords do not match.'})
+        
+        if MyUser.objects.filter(username=username).exists():
+            return render(request, 'mainApp/register.html', {'error': 'Username already exists.'})
+        
+        if MyUser.objects.filter(email=email).exists():
+            return render(request, 'mainApp/register.html', {'error': 'Email already exists.'})
+        
+        # Save user to the database
+        user = MyUser(username=username, password=password, email=email, name=name, is_instructor=instructor)
+        user.save()
+        
+        return redirect('login')  # Redirect to login page
+    
+    return render(request, 'mainApp/register.html', {'session': request.session})
