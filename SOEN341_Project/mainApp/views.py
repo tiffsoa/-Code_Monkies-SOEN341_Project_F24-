@@ -91,3 +91,5 @@ def register(request): #Janoudi for the instructor register
         return redirect('login')  # Redirect to login page
     
     return render(request, 'mainApp/register.html', {'session': request.session})
+
+##trying the branch
