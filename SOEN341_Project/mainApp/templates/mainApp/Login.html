@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- for every html file, do not forget "{% load static %}" as our css and images are in the static folder-->
+    <link rel="stylesheet" href="{% static 'mainApp/css/login_register.css' %}"> 
+    <!-- Be mindful of folder structures when referencing paths -->
 </head>
 <body>
     <div class="center-box">
-        <img src="{% static 'images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        <img src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
         <h2>Login</h2>
         <form class="login-form" method="POST">
             {% csrf_token %}
