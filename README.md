@@ -1,20 +1,80 @@
 # -Code_Monkies-SOEN341_Project_F24-
 
-Project: Peer Assessment System
+# Peer Assessment System
 
-We aim to build a website destined for students and professors, and that is to be used for team projects. Through this website, students will be able to rate their teammates'contributions and perfomance based on: cooperation, conceptual contribution, practical contribution and work ethic. Here are the key features:
+## Overview
+This project is a Peer Assessment Platform developed using Django. It allows students and instructors to manage assessments and evaluations efficiently. See the project README for more details on the overall project and team members. 
 
- - Students assessments: possibility to log in, anonymous evaluation of teammates for specific projects, evaluation on a 7-point scale
-    
- - Automated Score Sharing and Anonymous Peer Feedback: professor can see each student's overall assessment of their teammates, each student's evaluation results are shared with them
-    
-- Instructor Dashboard: instructors can create teams and access the assessments by team/by student, results can be converted to CSV files 
+### Prerequisites
+- Python 3.x
+- Django
+- Virtual Environment (recommended)
 
-Roles:
+### Installation
 
-- Valeria Rosca #40297230 : Frontend
-- Tiffany Soa Andriamiharimanana #40283866: Backend
-- Mohammed Janoudi #40252494: Full stack
-- Joseph Keshishian #40297447: Backend
-- Samuel Richard #40262098: Backend
-- Talar Mustafa #40284214: Frontend
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/username/repository.git
+   cd repository
+   ```
+2. **Create a Virtual Environment**
+```bash
+   python -m venv venv
+```
+3. **Activate the Virtual Environment**
+On Windows
+```bash
+   venv\Scripts\activate
+```
+On Mac/Linux
+```bash
+   source venv/bin/activate
+```
+4. **Install Requirements using pip**
+```bash
+   pip install -r requirements.txt
+```
+5. **Run Migrations**
+```bash
+   python manage.py migrate
+```
+6. **Run the Development Server**
+```bash
+   python manage.py runserver
+```
+
+## Project Structure
+SOEN341_Project/
+│
+├── mainApp/                
+│   ├── migrations/       
+│   ├── static/           
+│   │   └── mainApp/
+│   │       ├── css/
+│   │       │   ├── page1.css          
+│   │       │   ├── page2.css
+|   |       |   └── page3.css        
+│   │       └── images/
+│   │           └── img1.png           
+│   ├── templates/        
+│   │   └── mainApp/
+│   │       ├── page1.html
+│   │       └── page2.html
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
+├── SOEN341_Project/            
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── asgi.py
+│   └── wsgi.py
+│
+├── manage.py            
+├── requirements.txt     
+└── README.md             

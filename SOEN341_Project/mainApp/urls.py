@@ -7,5 +7,8 @@ from .views import *
 urlpatterns = [
     path('register/', register, name='register'),
     path('login/', login_view, name='login'),
-    #path('home/', home_view, name='home'), 
+    path('instructor/home/', instructor_home_view, name='instructorHomePage'),
+    path('student/home/', student_home_view, name='studentHomePage'),
+    #path('home/', home_view, name='home'), this is for student home
+    #need to add url for instructor home
 ]

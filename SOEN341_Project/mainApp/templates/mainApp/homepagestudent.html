@@ -1,13 +1,18 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Peer Assessment - Student Homepage</title>
-    <link rel="stylesheet" href="style.css">
+    {% load static %}
+    <!-- for every html file, do not forget "{% load static %}" as our css and images are in the static folder-->
+    <link rel="stylesheet" href="{% static 'mainApp/css/student_home.css' %}"> 
+    <!-- Be mindful of folder structures when referencing paths -->
 </head>
 <body>
     <header>
-        <img src="logo.png" alt="Concordia University Logo" class="logo">
+        <img src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        <!-- Be mindful of folder structures when referencing paths -->
         <div class="header-content">
             <h1>Peer Assessment</h1>
             <br>
