@@ -17,7 +17,3 @@ class MyUser(models.Model):
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100)
     instructor = models.BooleanField(default=False)  
-
-
- ##Test
- ## mohammed test
