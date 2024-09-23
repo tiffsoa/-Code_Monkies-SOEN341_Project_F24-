@@ -45,16 +45,16 @@ def login_view(request):
             #if match found
             user = MyUser.objects.get(username=username) #If a match exists, we store the object of that match in user
             request.session['user_id'] = user.id # And then we want to save the logged in user's id, so we store it in our 'session' dictionary (each user has a unique one)
-            request.session['username']= user.username
+            request.session['name']= user.name
             
             return redirect_after_login(user)
         
         else:
-            return render(request, 'mainApp/login.html', {'error': 'Username and password dont match'})
+            return render(request, 'mainApp/login.html', {'error': 'Account not found'})
     else:
         #If a user wasn't found, we send the user back to the login page
         #We should return an error message too!
-        return render(request, 'mainApp/login.html', {'session':request.session, 'error':"username and password doesnt match"})  # This returns to the user (request) the html file ( in mainApp/register.html) along with the data saved in our session dictionary ('session') which we can use in register.html
+        return render(request, 'mainApp/login.html', {'session':request.session, 'error':""})  # This returns to the user (request) the html file ( in mainApp/register.html) along with the data saved in our session dictionary ('session') which we can use in register.html
 
 def redirect_after_login(user):
     #Redirect to the right home page depending on user (student or instructor)
