@@ -36,7 +36,7 @@ def login_view(request):
 
 def redirect_after_login(user):
     #Redirect to the right home page depending on user (student or instructor)
-    if user.type == "instructor":
+    if user.instructor == True:
         return redirect('instructorHomePage') #Redirect to instructor home page
         #Need to add url with name=instructorHomePage which calls the view 'instructor_home_view'
     else:
