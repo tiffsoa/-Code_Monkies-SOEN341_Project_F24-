@@ -10,7 +10,8 @@ from django.db import models
 #  username = models.CharField(max_length=255, unique=True)
 #  password = models.CharField(max_length=255)
 
-class MyUser(models.Model):  
+class MyUser(models.Model):
+    id = models.AutoField(primary_key=True) #each user should have an id in the database
     username = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     email = models.EmailField(unique=True)

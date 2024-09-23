@@ -66,10 +66,12 @@ def redirect_after_login(user):
         #Need to add url with name=studentHomePage which calls the view "student_home_view"
 
 def instructor_home_view(request):
-    #Should add code such that only logged in users (those who we added a user_id in their session dictionary) can view this page
+    #fect the necessary info when we will have a database
     return render(request,'mainApp/instructorHome.html',{})
 
 def student_home_view(request):
+    #Fetch necessary data for the student home page
+    #for the first srpint, we do not have a database yet
     return render(request,'mainApp/homepagestudent.html',{})
 
 
