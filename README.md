@@ -13,10 +13,10 @@ This project is a Peer Assessment Platform developed using Django. It allows stu
 ### Installation
 
 1. **Clone the Repository**:
-   ```bash
+```bash
    git clone https://github.com/username/repository.git
    cd repository
-   ```
+```
 2. **Create a Virtual Environment**
 ```bash
    python -m venv venv
@@ -42,39 +42,4 @@ On Mac/Linux
 ```bash
    python manage.py runserver
 ```
-
-## Project Structure
-SOEN341_Project/
-│
-├── mainApp/                
-│   ├── migrations/       
-│   ├── static/           
-│   │   └── mainApp/
-│   │       ├── css/
-│   │       │   ├── page1.css          
-│   │       │   ├── page2.css
-|   |       |   └── page3.css        
-│   │       └── images/
-│   │           └── img1.png           
-│   ├── templates/        
-│   │   └── mainApp/
-│   │       ├── page1.html
-│   │       └── page2.html
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── tests.py
-│   ├── urls.py
-│   └── views.py
-│
-├── SOEN341_Project/            
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
-│
-├── manage.py            
-├── requirements.txt     
-└── README.md             
+Note: to run the development server, you need to be in the same directory as the manage.py
