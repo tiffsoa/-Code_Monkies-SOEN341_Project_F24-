@@ -3,21 +3,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Peer Assessment - Student Homepage</title>
+    <title>Peer Assessment - Instructor Homepage</title>
     {% load static %}
     <!-- for every html file, do not forget "{% load static %}" as our css and images are in the static folder-->
-    <link rel="stylesheet" href="{% static 'mainApp/css/student_home.css' %}"> 
+    <link rel="stylesheet" href="{% static 'mainApp/css/instructor_home.css' %}"> 
     <!-- Be mindful of folder structures when referencing paths -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
-        <img style="max-width: 400px;"src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        <img src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
         <!-- Be mindful of folder structures when referencing paths -->
         <div class="header-content">
             <h1>Peer Assessment</h1>
             <br>
-            <p>Welcome, Student! Here are your peers' teams. Click on any team to view and assess.</p>
+            <p>Welcome, Instructor! Here are your students' teams. Click on any team to view and open or close teams.</p>
         </div>
         <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
         <button type="button">Log out</button>
@@ -26,9 +26,10 @@
     <main>
         <div class="teams-container">
             <div class="team-block">
+                <!--for the moment, i put template team blocks, but when we'll have the necessary database to do so, i'll change the layout and possibility to add teams-->
                 <a>    
                 <h3>Team A</h3>
-                <button type="button">Assess teammates</button>   
+                <button type="button">Close team</button>   
                 <button type="button">See ratings</button>    
                 </a>                       
             </div>
@@ -36,7 +37,7 @@
             <div class="team-block">
                 <a>    
                 <h3>Team B</h3>
-                <button type="button">Assess teammates</button>    
+                <button type="button">Close team</button>   
                 <button type="button">See ratings</button>                                      
                 </a>
             </div>
@@ -44,7 +45,7 @@
             <div class="team-block">
                 <a>    
                 <h3>Team C</h3>
-                <button type="button">Assess teammates</button>    
+                <button type="button">Close team</button>   
                 <button type="button">See ratings</button>                                      
                 </a>
             </div>
@@ -52,7 +53,7 @@
             <div class="team-block">
                 <a>    
                     <h3>Team D</h3>
-                    <button type="button">Assess teammates</button>    
+                    <button type="button">Close team</button>   
                     <button type="button">See ratings</button>                                      
                 </a>
             </div>
@@ -60,7 +61,7 @@
             <div class="team-block">
                 <a>    
                     <h3>Team E</h3>
-                    <button type="button">Assess teammates</button>   
+                    <button type="button">Close team</button>   
                     <button type="button">See ratings</button>                                       
                 </a>
             </div>
