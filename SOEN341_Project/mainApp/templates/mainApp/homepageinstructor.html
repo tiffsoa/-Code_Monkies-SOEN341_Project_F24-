@@ -12,15 +12,18 @@
 </head>
 <body>
     <header>
-        <img src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        <img style="max-width: 400px;"src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
         <!-- Be mindful of folder structures when referencing paths -->
         <div class="header-content">
             <h1>Peer Assessment</h1>
             <br>
             <p>Welcome, Instructor! Here are your students' teams. Click on any team to view and open or close teams.</p>
         </div>
-        <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
-        <button type="button">Log out</button>
+        <!--The settings, logout button and others are just for the layout for the moment, they will hold a function for the next sprints.-->
+        <div class="settings">
+            <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
+            <button type="button">Log out</button>
+        </div>
     </header>
     
     <main>
