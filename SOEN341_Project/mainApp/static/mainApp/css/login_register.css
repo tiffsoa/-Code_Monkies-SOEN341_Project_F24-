@@ -77,14 +77,15 @@ a:hover {
     gap: 15px; 
     margin-bottom: 20px;}
 
-    .register-form input, .register-form select {
-        padding: 10px;
-        font-size: 16px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        width: 100%;
-        box-sizing: border-box;}
 
+
+.register-form input, .register-form select {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;}
 
 .register-form select {
     font-size: 16px;
