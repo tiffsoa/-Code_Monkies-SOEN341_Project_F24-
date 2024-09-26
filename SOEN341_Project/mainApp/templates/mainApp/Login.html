@@ -25,6 +25,10 @@
             {% if error %}
             <div style="color:red;"><br>{{ error }}</div>
             {% endif %}
+            
+            {% if success %}
+            <div style="color:green;"><br>{{ success }}</div>
+            {% endif %}
     
         </form>
         <p>Don't have an account? <a href="{% url 'register' %}">Create an account</a></p>
