@@ -3,7 +3,7 @@
 # Peer Assessment System
 
 ## Overview
-This project is a Peer Assessment Platform developed using Django. It allows students and instructors to manage assessments and evaluations efficiently. See the project README for more details on the overall project and team members. 
+This project is a Peer Assessment Platform developed using Django. It allows students and instructors to manage assessments and evaluations efficiently. See the Wiki section for more details on the overall project, choice of technologies and team members. 
 
 ### Prerequisites
 - Python 3.x
