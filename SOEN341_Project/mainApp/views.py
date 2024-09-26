@@ -42,7 +42,7 @@ def redirect_after_login(user):
         return redirect('studentHomePage') #Redirect to student home page
 
 def instructor_home_view(request):
-    #fecth the necessary info when we will have a database
+    #fect the necessary info when we will have a database
     return render(request,'mainApp/instructorHome.html',{})
 
 def student_home_view(request):
