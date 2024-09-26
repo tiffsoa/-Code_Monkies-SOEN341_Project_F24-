@@ -9,6 +9,8 @@ urlpatterns = [
     path('', login_view, name='login'),
     path('instructor/home/', instructor_home_view, name='instructorHomePage'),
     path('student/home/', student_home_view, name='studentHomePage'),
+    path('student/home/logout', logout, name='logout'),
+    path('instructor/home/logout', logout, name='logout')
 
     #path('home/', home_view, name='home'), this is for student home
     #need to add url for instructor home
