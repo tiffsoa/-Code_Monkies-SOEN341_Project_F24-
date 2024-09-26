@@ -22,10 +22,7 @@
         <!--The settings, logout button and others are just for the layout for the moment, they will hold a function for the next sprints.-->
         <div class="settings">
             <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
-            <form action="logout" method="POST"> 
-                {% csrf_token %}
-                <button type="submit">Log out</button> 
-            </form>
+            <button type="button">Log out</button>
         </div>
     </header>
     

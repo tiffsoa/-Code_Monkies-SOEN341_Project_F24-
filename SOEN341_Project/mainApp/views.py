@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import MyUser
-from django.contrib import messages
 
 #this is the main file we will work on
 #here, we will create different views or routes that we can access on our website
@@ -44,7 +43,7 @@ def redirect_after_login(user):
 
 def instructor_home_view(request):
     #fect the necessary info when we will have a database
-    return render(request,'mainApp/homepageinstructor.html',{})
+    return render(request,'mainApp/instructorHome.html',{})
 
 def student_home_view(request):
     #Fetch necessary data for the student home page
@@ -79,11 +78,4 @@ def register(request):
         return redirect('login')  # Redirect to login page
     
     return render(request, 'mainApp/register.html', {'session': request.session})
-
-def logout(request):
-    if request.method == "POST": 
-        del request.session['user_id']
-        del request.session['name']
-        #return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})
-        return redirect('login')
 
