@@ -60,8 +60,12 @@ def register(request):
         confirm_password = request.POST.get('confirm_password')
         email = request.POST.get('email')
         name = request.POST.get('name')
-        instructor = request.POST.get('instructor') == 'on'  # assuming checkbox for instructor
-        
+
+        if request.POST['role'] == "teacher": # Was unable to make it work with request.POST.get
+            instructor = 1
+        else:
+            instructor = 0
+
         # Validate data
         if password != confirm_password:
             return render(request, 'mainApp/register.html', {'error': 'Passwords do not match.'})
@@ -72,8 +76,9 @@ def register(request):
         if MyUser.objects.filter(email=email).exists():
             return render(request, 'mainApp/register.html', {'error': 'Email already exists.'})
         
+        
         # Save user to the database
-        user = MyUser(username=username, password=password, email=email, name=name, is_instructor=instructor)
+        user = MyUser(username=username, password=password, email=email, name=name, instructor=instructor)
         user.save()
         
         return redirect('login')  # Redirect to login page
@@ -84,6 +89,6 @@ def logout(request):
     if request.method == "POST": 
         del request.session['user_id']
         del request.session['name']
-        #return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})
+        # Logout message to be revisited for sprint 2: return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})
         return redirect('login')
 
