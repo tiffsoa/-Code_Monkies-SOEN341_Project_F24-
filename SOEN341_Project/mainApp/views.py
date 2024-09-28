@@ -52,7 +52,7 @@ def student_home_view(request):
     return render(request,'mainApp/homepagestudent.html',{})
 
 
-def register(request):
+def register(request): #register main method to function "Backend"
     if request.method == 'POST':
         # Extract data from the HTML form
         username = request.POST.get('username')
