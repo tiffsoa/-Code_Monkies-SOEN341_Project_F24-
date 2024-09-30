@@ -74,19 +74,53 @@ def instructor_home_view(request):
 
 def CloseOpenTeam(request, team_id):
     #placeholder
-    return redirect('instructor_home_view')
+    return redirect('instructorHomePage')
 
 def teamRatingsInstructor(request, team_id):
     #placeholder
-    return redirect('instructor_home_view')
+    return redirect('instructorHomePage')
 
 
 
 def student_home_view(request):
-    #Fetch necessary data for the student home page
-    #for the first srpint, we do not have a database yet
-    return render(request,'mainApp/homepagestudent.html',{})
+    # Step 1: Retrieve the user ID from session
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        # Handle case where user_id is not in session (e.g., user is not logged in)
+        return redirect('login')  # Redirect to login page
+    
+    # Step 2: Query the Projects_to_Student_Relationships table for the projects the user is in
+    user_projects = Projects_to_Student_Relationships.objects.filter(student_id=user_id)
+    
+    # Step 3: For each project, get project info and instructor details
+    projects_info = []
+    for user_project in user_projects:
+        projectID = user_project.project_id  #Get the unique ID of the project
+        instructorID= Projects.objects.get(id=projectID).instructorID #Get the ID of the instructor
+        
+        # Get the project details
+        project_data = {
+            'project_id': projectID,
+            'project_name': Projects.objects.get(id=projectID).project_name,
+            'is_open': Projects.objects.get(id=projectID).open, 
+            'instructor_name': MyUser.objects.get(id=instructorID).name
+        }
+        projects_info.append(project_data)
+    
+    
+    # Now, we have a list with dictionaries sent to the frontend. It looks something like this:
+    # [{project_id:123123,project_name:"Some name",is_open:1, instructor_name: "John"}, {project_id:9345353,project_name:"Some other name",is_open:0, instructor_name: "Jane"}]
+    # Step 4: Render the information to the template
+    return render(request, 'mainApp/homepagestudent.html', {'projects': projects_info})
 
+def assessTeam(request, team_id):
+    #placeholder
+    return redirect('studentHomePage')
+
+def teamRatingsStudent(request, team_id):
+    #placeholder
+    return redirect('studentHomePage')
 
 def register(request): #register main method to function "Backend"
     if request.method == 'POST':
