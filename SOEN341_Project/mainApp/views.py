@@ -56,14 +56,14 @@ def instructor_home_view(request):
     # Step 3: For each project, get project info 
     projects_info = []
     for instructor_project in instructor_projects:
-        projectID = instructor_project.project_id  
+        projectID = instructor_project.id  
 	
         
         # Get the project details
         project_data = {
             'project_id': projectID,
             'project_name': instructor_project.project_name,
-            'is_open': instructor_project.is_open, 
+            'is_open': instructor_project.open, 
         }
         projects_info.append(project_data)
     
@@ -97,7 +97,7 @@ def student_home_view(request):
     projects_info = []
     for user_project in user_projects:
         projectID = user_project.project_id  #Get the unique ID of the project
-        instructorID= Projects.objects.get(id=projectID).instructorID #Get the ID of the instructor
+        instructorID= Projects.objects.get(id=projectID).instructor_id #Get the ID of the instructor
         
         # Get the project details
         project_data = {
