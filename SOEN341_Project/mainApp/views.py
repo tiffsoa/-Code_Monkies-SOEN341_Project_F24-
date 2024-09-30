@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import MyUser
+from .models import *
 from django.contrib import messages
 
 #this is the main file we will work on
@@ -43,8 +43,44 @@ def redirect_after_login(user):
         return redirect('studentHomePage') #Redirect to student home page
 
 def instructor_home_view(request):
-    #fect the necessary info when we will have a database
-    return render(request,'mainApp/homepageinstructor.html',{})
+    # Step 1: Retrieve the user ID from session
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        # Handle case where user_id is not in session (e.g., user is not logged in)
+        return redirect('login')  # Redirect to login page 
+    
+    # Step 2: Query the projects table for the instructor’s projects
+    instructor_projects = Projects.objects.filter(instructor_id=user_id)
+    
+    # Step 3: For each project, get project info 
+    projects_info = []
+    for instructor_project in instructor_projects:
+        projectID = instructor_project.project_id  
+	
+        
+        # Get the project details
+        project_data = {
+            'project_id': projectID,
+            'project_name': instructor_project.project_name,
+            'is_open': instructor_project.is_open, 
+        }
+        projects_info.append(project_data)
+    
+    #Now, we have a list with dictionaries sent to the frontend. It looks something like this:
+    # [{project_id:123123,project_name:"Some name",is_open:1},{project_id:9345353,project_name:"Some other name",is_open:0}]
+    # Step 4: Render the information to the template
+    return render(request, 'mainApp/homepageinstructor.html', {'projects': projects_info})
+
+def CloseOpenTeam(request, team_id):
+    #placeholder
+    return redirect('instructor_home_view')
+
+def teamRatingsInstructor(request, team_id):
+    #placeholder
+    return redirect('instructor_home_view')
+
+
 
 def student_home_view(request):
     #Fetch necessary data for the student home page

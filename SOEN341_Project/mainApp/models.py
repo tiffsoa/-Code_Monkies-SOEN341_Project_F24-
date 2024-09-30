@@ -12,13 +12,13 @@ class MyUser(models.Model):
     name = models.CharField(max_length=100)
     instructor = models.BooleanField(default=False)  
 
-class MyProjects(models.Model):
+class Projects(models.Model):
     id = models.AutoField(primary_key=True) #each project should have a unique id in the database
     project_name = models.CharField(max_length = 255, unique=True)
     open = models.BooleanField(default=False)
     instructor_id = models.IntegerField()
 
-class People_Project(models.Model):
+class Projects_to_Student_Relationships(models.Model):
     project_id = models.IntegerField()
     student_id = models.IntegerField()
     rating_complete = models.BooleanField(default=False)
@@ -33,3 +33,8 @@ class Ratings(models.Model):
     score_practical = models.CharField(max_length=1)
     score_workethic = models.CharField(max_length=1)
     comment = models.CharField(max_length=255)
+
+#WHENEVER A CHANGE IS MADE, TYPE THIS INTO TERMINAL!
+
+# python manage.py makemigrations
+# python manage.py migrate
