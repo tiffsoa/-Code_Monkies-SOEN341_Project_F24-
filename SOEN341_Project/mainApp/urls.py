@@ -13,6 +13,6 @@ urlpatterns = [
     path('instructor/home/logout', logout, name='logout'),
     path('instructor/CloseOpenTeam/<int:team_id>', CloseOpenTeam, name='CloseOpenTeam'),
     path('instructor/teamRatings/<int:team_id>', teamRatingsInstructor, name='teamRatingsInstructor'),
-    path('student/viewTeam/<int:team_id>', assessTeam, name='viewTeam'),
+    path('student/viewTeam/<int:team_id>', viewTeam, name='viewTeam'),
     path('student/teamRatings/<int:team_id>', teamRatingsStudent, name='teamRatingsStudent'),
 ]
