@@ -114,7 +114,7 @@ def student_home_view(request):
     # Step 4: Render the information to the template
     return render(request, 'mainApp/homepagestudent.html', {'projects': projects_info})
 
-def assessTeam(request, team_id):
+def viewTeam(request, team_id):
     #placeholder
     return redirect('studentHomePage')
 
