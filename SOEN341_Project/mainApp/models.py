@@ -21,7 +21,6 @@ class Projects(models.Model):
 class Projects_to_Student_Relationships(models.Model):
     project_id = models.IntegerField()
     student_id = models.IntegerField()
-    rating_complete = models.BooleanField(default=False)
 
 class Ratings(models.Model):
     id = models.AutoField(primary_key=True) #each rating should have a unique id in the database
