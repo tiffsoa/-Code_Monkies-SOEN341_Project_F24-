@@ -24,7 +24,7 @@ class Projects_to_Student_Relationships(models.Model):
 
 class Ratings(models.Model):
     id = models.AutoField(primary_key=True) #each rating should have a unique id in the database
-    project_id = models.IntegerField()
+    project_id_rating_is_for = models.IntegerField()
     student_rater_id = models.IntegerField()
     student_being_rated_id = models.IntegerField()
     score_cooperation = models.CharField(max_length=1)
