@@ -115,8 +115,26 @@ def student_home_view(request):
     return render(request, 'mainApp/homepagestudent.html', {'projects': projects_info})
 
 def viewTeam(request, team_id):
-    #placeholder
-    return redirect('studentHomePage')
+    user_id = request.session.get('user_id')  # get logged-in user's ID from session
+
+    # Find all students un the team (project) with the given team number
+    team_memberships = Projects_to_Student_Relationships.objects.filter(project_id=team_id)
+
+    # Extract the student details for each membership
+    student_list = []
+    for membership in team_memberships:
+        student = MyUser.objects.get(id=membership.student_id)
+
+        #omit the student who's currently viewing from the list
+        if student.id == user_id:
+            continue
+        
+        student_list.append({student.name: student.id})
+
+    # Pass the student list to the front-end (in a list of maps)
+    context = {'students': student_list}
+
+    return render(request, 'students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
 
 def teamRatingsStudent(request, team_id):
     #placeholder
@@ -161,4 +179,5 @@ def logout(request):
         del request.session['name']
         # Logout message to be revisited for sprint 2: return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})
         return redirect('login')
+
 
