@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Peer Assessment - Student Homepage</title>
+    {% load static %}
+    <!-- for every html file, do not forget "{% load static %}" as our css and images are in the static folder-->
+    <link rel="stylesheet" href="{% static 'mainApp/css/viewTeam.css' %}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header>
+        <img style="max-width: 400px;"src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        <!-- Be mindful of folder structures when referencing paths -->
+        <div class="header-content">
+            <h1>Peer Assessment</h1><br>
+            <p>Here are the students in the team. Click on Assess Student to rate their performance. </p>
+        </div>
+        <!--The settings, logout button and others are just for the layout for the moment, they will hold a function for the next sprints.-->
+        <div class="settings">
+            <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
+            <form action="logout" method="POST"> 
+                {% csrf_token %}
+                <button type="submit">Log out</button> 
+            </form>
+        </div>
+    </header>
+    
+    <main>
+        
+    </main>
+
+    <footer>
+        <p>© 2024 Peer Assessment Platform. All rights reserved.</p>
+    </footer>
+</body>
+</html>

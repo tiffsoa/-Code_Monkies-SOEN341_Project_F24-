@@ -134,7 +134,7 @@ def viewTeam(request, team_id):
     # Pass the student list to the front-end (in a list of maps)
     context = {'students': student_list}
 
-    return render(request, 'students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
+    return render(request, 'mainApp/students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
 
 def teamRatingsStudent(request, team_id):
     #placeholder
