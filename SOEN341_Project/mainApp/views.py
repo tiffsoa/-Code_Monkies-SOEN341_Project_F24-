@@ -162,8 +162,48 @@ def createGroupPage(request):
             projectStudent.save()
         
         return render(request, 'mainApp/homepageinstructor.html', {'session': request.session})
-    
     return render(request, 'mainApp/createGroup.html', {'session': request.session})
+
+def createGroupCSV(request):
+    if request.method == 'POST':
+        try:
+            csv_file = request.FILES["csv_file"]
+            if not csv_file.name.endswith('.csv'):
+                return render(request, 'mainApp/createGroup.html', {'error': 'File is not a .csv'})
+            if csv_file.multiple_chunks():
+                return render(request, 'mainApp/createGroup.html', {'error': 'File is too large'})
+
+            file_data = csv_file.read().decode("utf-8")		
+
+            lines = file_data.split("\n")
+    
+            for line in lines:	#loop over the lines and save them in db.		
+                fields = line.split(",")
+                groupName = fields[0]
+                idList = []
+                for user in fields[1:]:
+                    if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
+                        userExists = MyUser.objects.get(username=user)
+                        id = userExists.id
+                        idList.append(id)
+                    else:
+                        return render(request, 'mainApp/createGroup.html', {'error': user + 'does not exist.'}) #Error message if user doesn't exists
+                newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
+                newProject.save() #Saving project to database
+
+                projectID = newProject.id #Retrieve new project id
+
+                for id in idList: #iterate through all ids and create their relationship with their respective projects
+                     projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
+                     projectStudent.save()
+                
+        except Exception as e:
+            logging.getLogger("error_logger").error("Unable to upload file. "+repr(e))
+            return render(request, 'mainApp/createGroup.html', {'error': 'Unable to upload file' + repr(e)})
+
+        return render(request, 'mainApp/homepageinstructor.html', {'session': request.session})
+    return render(request, 'mainApp/createGroup.html', {'session': request.session})
+        
 
 def register(request): #register main method to function "Backend"
     if request.method == 'POST':
