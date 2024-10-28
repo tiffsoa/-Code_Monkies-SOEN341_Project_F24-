@@ -140,6 +140,31 @@ def teamRatingsStudent(request, team_id):
     #placeholder
     return redirect('studentHomePage')
 
+def createGroupPage(request):
+    if request.method == 'POST':
+        projectName = request.POST.get('project_name')
+        userList = request.POST.getlist('user_name[]')
+        idList = []
+        for user in userList:
+            if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
+                userExists = MyUser.objects.get(username=user)
+                id = userExists.id
+                idList.append(id) #if they exist, add their student id to the id list
+            else:
+                return render(request, 'mainApp/createGroup.html', {'error': user + 'does not exist.'}) #Error message if user doesn't exists
+        newProject = Projects(project_name = projectName, open = True, instructor_id  = request.session.get('user_id'))
+        newProject.save() #Saving project to database
+
+        projectID = newProject.id #Retrieve new project id
+
+        for id in idList: #iterate through all ids and create their relationship with their respective projects
+            projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
+            projectStudent.save()
+        
+        return render(request, 'mainApp/homepageinstructor.html', {'session': request.session})
+    
+    return render(request, 'mainApp/createGroup.html', {'session': request.session})
+
 def register(request): #register main method to function "Backend"
     if request.method == 'POST':
         # Extract data from the HTML form
@@ -177,7 +202,7 @@ def logout(request):
     if request.method == "POST": 
         del request.session['user_id']
         del request.session['name']
-        # Logout message to be revisited for sprint 2: return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})
+        # Logout message to be revisited for a later sprint: return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})
         return redirect('login')
 
 
