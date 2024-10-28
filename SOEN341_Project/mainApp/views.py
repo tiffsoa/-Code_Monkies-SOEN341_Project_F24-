@@ -151,7 +151,7 @@ def createGroupPage(request):
                 id = userExists.id
                 idList.append(id) #if they exist, add their student id to the id list
             else:
-                return render(request, 'mainApp/createGroup.html', {'error': user + 'does not exist.'}) #Error message if user doesn't exists
+                return render(request, 'mainApp/createGroup.html', {'error': user + 'does not exist.'}) #Error message if user doesn't exist
         newProject = Projects(project_name = projectName, open = True, instructor_id  = request.session.get('user_id'))
         newProject.save() #Saving project to database
 
@@ -168,12 +168,12 @@ def createGroupCSV(request):
     if request.method == 'POST':
         try:
             csv_file = request.FILES["csv_file"]
-            if not csv_file.name.endswith('.csv'):
+            if not csv_file.name.endswith('.csv'): #if not a .csv file
                 return render(request, 'mainApp/createGroup.html', {'error': 'File is not a .csv'})
-            if csv_file.multiple_chunks():
+            if csv_file.multiple_chunks(): #if the file is too large
                 return render(request, 'mainApp/createGroup.html', {'error': 'File is too large'})
 
-            file_data = csv_file.read().decode("utf-8")		
+            file_data = csv_file.read().decode("utf-8")	#read the file	
 
             lines = file_data.split("\n")
     
@@ -181,13 +181,13 @@ def createGroupCSV(request):
                 fields = line.split(",")
                 groupName = fields[0]
                 idList = []
-                for user in fields[1:]:
+                for user in fields[1:]: #generally the same process as normal group creation
                     if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
                         userExists = MyUser.objects.get(username=user)
                         id = userExists.id
                         idList.append(id)
                     else:
-                        return render(request, 'mainApp/createGroup.html', {'error': user + 'does not exist.'}) #Error message if user doesn't exists
+                        return render(request, 'mainApp/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
                 newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
                 newProject.save() #Saving project to database
 
@@ -197,7 +197,7 @@ def createGroupCSV(request):
                      projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
                      projectStudent.save()
                 
-        except Exception as e:
+        except Exception as e: #Error handling if unable to upload file for any reason
             logging.getLogger("error_logger").error("Unable to upload file. "+repr(e))
             return render(request, 'mainApp/createGroup.html', {'error': 'Unable to upload file' + repr(e)})
 
