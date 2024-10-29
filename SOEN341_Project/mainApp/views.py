@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import *
+from .models import MyUser
 from django.contrib import messages
 
 #this is the main file we will work on
@@ -43,167 +43,14 @@ def redirect_after_login(user):
         return redirect('studentHomePage') #Redirect to student home page
 
 def instructor_home_view(request):
-    # Step 1: Retrieve the user ID from session
-    user_id = request.session.get('user_id')
-    
-    if not user_id:
-        # Handle case where user_id is not in session (e.g., user is not logged in)
-        return redirect('login')  # Redirect to login page 
-    
-    # Step 2: Query the projects table for the instructor’s projects
-    instructor_projects = Projects.objects.filter(instructor_id=user_id)
-    
-    # Step 3: For each project, get project info 
-    projects_info = []
-    for instructor_project in instructor_projects:
-        projectID = instructor_project.id  
-	
-        
-        # Get the project details
-        project_data = {
-            'project_id': projectID,
-            'project_name': instructor_project.project_name,
-            'is_open': instructor_project.open, 
-        }
-        projects_info.append(project_data)
-    
-    #Now, we have a list with dictionaries sent to the frontend. It looks something like this:
-    # [{project_id:123123,project_name:"Some name",is_open:1},{project_id:9345353,project_name:"Some other name",is_open:0}]
-    # Step 4: Render the information to the template
-    return render(request, 'mainApp/homepageinstructor.html', {'projects': projects_info})
-
-def CloseOpenTeam(request, team_id):
-    #placeholder
-    return redirect('instructorHomePage')
-
-def teamRatingsInstructor(request, team_id):
-    #placeholder
-    return redirect('instructorHomePage')
-
-
+    #fect the necessary info when we will have a database
+    return render(request,'mainApp/homepageinstructor.html',{})
 
 def student_home_view(request):
-    # Step 1: Retrieve the user ID from session
-    user_id = request.session.get('user_id')
-    
-    if not user_id:
-        # Handle case where user_id is not in session (e.g., user is not logged in)
-        return redirect('login')  # Redirect to login page
-    
-    # Step 2: Query the Projects_to_Student_Relationships table for the projects the user is in
-    user_projects = Projects_to_Student_Relationships.objects.filter(student_id=user_id)
-    
-    # Step 3: For each project, get project info and instructor details
-    projects_info = []
-    for user_project in user_projects:
-        projectID = user_project.project_id  #Get the unique ID of the project
-        instructorID= Projects.objects.get(id=projectID).instructor_id #Get the ID of the instructor
-        
-        # Get the project details
-        project_data = {
-            'project_id': projectID,
-            'project_name': Projects.objects.get(id=projectID).project_name,
-            'is_open': Projects.objects.get(id=projectID).open, 
-            'instructor_name': MyUser.objects.get(id=instructorID).name
-        }
-        projects_info.append(project_data)
-    
-    
-    # Now, we have a list with dictionaries sent to the frontend. It looks something like this:
-    # [{project_id:123123,project_name:"Some name",is_open:1, instructor_name: "John"}, {project_id:9345353,project_name:"Some other name",is_open:0, instructor_name: "Jane"}]
-    # Step 4: Render the information to the template
-    return render(request, 'mainApp/homepagestudent.html', {'projects': projects_info})
+    #Fetch necessary data for the student home page
+    #for the first srpint, we do not have a database yet
+    return render(request,'mainApp/homepagestudent.html',{})
 
-def viewTeam(request, team_id):
-    user_id = request.session.get('user_id')  # get logged-in user's ID from session
-
-    # Find all students un the team (project) with the given team number
-    team_memberships = Projects_to_Student_Relationships.objects.filter(project_id=team_id)
-
-    # Extract the student details for each membership
-    student_list = []
-    for membership in team_memberships:
-        student = MyUser.objects.get(id=membership.student_id)
-
-        #omit the student who's currently viewing from the list
-        if student.id == user_id:
-            continue
-        
-        student_list.append({student.name: student.id})
-
-    # Pass the student list to the front-end (in a list of maps)
-    context = {'students': student_list}
-    #i.e. context looks something like {'students':["name1":id1,"name2":id2,"name3",id3]}
-    return render(request, 'mainApp/students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
-
-def teamRatingsStudent(request, team_id):
-    #placeholder
-    return redirect('studentHomePage')
-
-def createGroupPage(request):
-    if request.method == 'POST':
-        projectName = request.POST.get('project_name')
-        userList = request.POST.getlist('user_name[]')
-        idList = []
-        for user in userList:
-            if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
-                userExists = MyUser.objects.get(username=user)
-                id = userExists.id
-                idList.append(id) #if they exist, add their student id to the id list
-            else:
-                return render(request, 'mainApp/createGroup.html', {'error': user + 'does not exist.'}) #Error message if user doesn't exist
-        newProject = Projects(project_name = projectName, open = True, instructor_id  = request.session.get('user_id'))
-        newProject.save() #Saving project to database
-
-        projectID = newProject.id #Retrieve new project id
-
-        for id in idList: #iterate through all ids and create their relationship with their respective projects
-            projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
-            projectStudent.save()
-        
-        return render(request, 'mainApp/homepageinstructor.html', {'session': request.session})
-    return render(request, 'mainApp/createGroup.html', {'session': request.session})
-
-def createGroupCSV(request):
-    if request.method == 'POST':
-        try:
-            csv_file = request.FILES["csv_file"]
-            if not csv_file.name.endswith('.csv'): #if not a .csv file
-                return render(request, 'mainApp/createGroup.html', {'error': 'File is not a .csv'})
-            if csv_file.multiple_chunks(): #if the file is too large
-                return render(request, 'mainApp/createGroup.html', {'error': 'File is too large'})
-
-            file_data = csv_file.read().decode("utf-8")	#read the file	
-
-            lines = file_data.split("\n")
-    
-            for line in lines:	#loop over the lines and save them in db.		
-                fields = line.split(",")
-                groupName = fields[0]
-                idList = []
-                for user in fields[1:]: #generally the same process as normal group creation
-                    if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
-                        userExists = MyUser.objects.get(username=user)
-                        id = userExists.id
-                        idList.append(id)
-                    else:
-                        return render(request, 'mainApp/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
-                newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
-                newProject.save() #Saving project to database
-
-                projectID = newProject.id #Retrieve new project id
-
-                for id in idList: #iterate through all ids and create their relationship with their respective projects
-                     projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
-                     projectStudent.save()
-                
-        except Exception as e: #Error handling if unable to upload file for any reason
-            logging.getLogger("error_logger").error("Unable to upload file. "+repr(e))
-            return render(request, 'mainApp/createGroup.html', {'error': 'Unable to upload file' + repr(e)})
-
-        return render(request, 'mainApp/homepageinstructor.html', {'session': request.session})
-    return render(request, 'mainApp/createGroup.html', {'session': request.session})
-        
 
 def register(request): #register main method to function "Backend"
     if request.method == 'POST':
@@ -242,7 +89,6 @@ def logout(request):
     if request.method == "POST": 
         del request.session['user_id']
         del request.session['name']
-        # Logout message to be revisited for a later sprint: return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})
+        # Logout message to be revisited for sprint 2: return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})
         return redirect('login')
-
 

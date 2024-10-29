@@ -20,5 +20,4 @@ from django.urls import path,include
 urlpatterns = [
     path('', include('mainApp.urls')),
     path('admin/', admin.site.urls),
-    #url(r'^upload/csv/$', views.createGroupCSV, name='createGroupCSV'),
 ]

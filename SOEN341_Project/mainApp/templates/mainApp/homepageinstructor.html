@@ -31,17 +31,46 @@
     
     <main>
         <div class="teams-container">
-            {% for project in projects %}
-                <div class="team-block">
+            <div class="team-block">
+                <!--for the moment, i put template team blocks, but when we'll have the necessary database to do so, i'll change the layout and possibility to add teams-->
                 <a>    
-                <h3>{{ project.project_name }}</h3>
-                <h3>{{ project.is_open|yesno:"Open,Closed" }}</h3>
-                <button type=“button” onclick="location.href='{% url 'CloseOpenTeam' project.project_id %}';"> Close/Open Team </button>
-                <button type=“button” onclick="location.href='{% url 'teamRatingsInstructor' project.project_id %}';"> See ratings </button>
+                <h3>Team A</h3>
+                <button type="button">Close team</button>   
+                <button type="button">See ratings</button>    
                 </a>                       
-                </div>
-            {% endfor %}
+            </div>
 
+            <div class="team-block">
+                <a>    
+                <h3>Team B</h3>
+                <button type="button">Close team</button>   
+                <button type="button">See ratings</button>                                      
+                </a>
+            </div>
+
+            <div class="team-block">
+                <a>    
+                <h3>Team C</h3>
+                <button type="button">Close team</button>   
+                <button type="button">See ratings</button>                                      
+                </a>
+            </div>
+
+            <div class="team-block">
+                <a>    
+                    <h3>Team D</h3>
+                    <button type="button">Close team</button>   
+                    <button type="button">See ratings</button>                                      
+                </a>
+            </div>
+
+            <div class="team-block">
+                <a>    
+                    <h3>Team E</h3>
+                    <button type="button">Close team</button>   
+                    <button type="button">See ratings</button>                                       
+                </a>
+            </div>
         </div>
     </main>
 
