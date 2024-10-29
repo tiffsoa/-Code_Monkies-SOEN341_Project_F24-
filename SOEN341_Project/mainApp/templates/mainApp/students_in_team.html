@@ -15,7 +15,7 @@
         <!-- Be mindful of folder structures when referencing paths -->
         <div class="header-content">
             <h1>Peer Assessment</h1><br>
-            <p>Here are the students in the team. Click on Assess Student to rate their performance. </p>
+            <p>Here are the students in the team: {{ teamName }}. Click on Assess Student to rate their performance. </p>
         </div>
         <!--The settings, logout button and others are just for the layout for the moment, they will hold a function for the next sprints.-->
         <div class="settings">
@@ -28,7 +28,11 @@
     </header>
     
     <main>
-        
+        {% for student in students %}
+            {% for name, id in student.items %}
+                <p>Name: {{ name }}, ID: {{ id }}</p>
+            {% endfor %}
+        {% endfor %}
     </main>
 
     <footer>
