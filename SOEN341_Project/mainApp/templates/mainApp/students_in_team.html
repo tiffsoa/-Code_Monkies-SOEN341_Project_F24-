@@ -6,8 +6,7 @@
     <title>Peer Assessment - Student Homepage</title>
     {% load static %}
     <!-- for every html file, do not forget "{% load static %}" as our css and images are in the static folder-->
-    <link rel="stylesheet" href="{% static 'mainApp/css/student_home.css' %}"> 
-    <!-- Be mindful of folder structures when referencing paths -->
+    <link rel="stylesheet" href="{% static 'mainApp/css/viewTeam.css' %}"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -15,9 +14,8 @@
         <img style="max-width: 400px;"src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
         <!-- Be mindful of folder structures when referencing paths -->
         <div class="header-content">
-            <h1>Peer Assessment</h1>
-            <br>
-            <p>Welcome, Student! Here are your peers' teams. Click on any team to view and assess.</p>
+            <h1>Peer Assessment</h1><br>
+            <p>Here are the students in the team. Click on Assess Student to rate their performance. </p>
         </div>
         <!--The settings, logout button and others are just for the layout for the moment, they will hold a function for the next sprints.-->
         <div class="settings">
@@ -30,22 +28,7 @@
     </header>
     
     <main>
-        <div class="teams-container">
-            {% for project in projects %}
-                <div class="team-block">
-                <a>    
-                <h3>{{ project.project_name }}</h3>
-                <h3> Instructor: {{ project.instructor_name }}</h3>
-                <h3>{{ project.is_open|yesno:"Open,Closed" }}</h3>
-                <button type=“button” onclick="location.href='{% url 'viewTeam' project.project_id %}';"> View/Rate Teammates </button>
-                <button type=“button” onclick="location.href='{% url 'teamRatingsStudent' project.project_id %}';"> See ratings </button>
-            </a>                       
-            </div>
-            {% endfor %}
-
-
-            
-        </div>
+        
     </main>
 
     <footer>

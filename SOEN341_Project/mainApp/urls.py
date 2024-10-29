@@ -10,8 +10,9 @@ urlpatterns = [
     path('instructor/home/', instructor_home_view, name='instructorHomePage'),
     path('student/home/', student_home_view, name='studentHomePage'),
     path('student/home/logout', logout, name='logout'),
-    path('instructor/home/logout', logout, name='logout')
-
-    #path('home/', home_view, name='home'), this is for student home
-    #need to add url for instructor home
+    path('instructor/home/logout', logout, name='logout'),
+    path('instructor/CloseOpenTeam/<int:team_id>', CloseOpenTeam, name='CloseOpenTeam'),
+    path('instructor/teamRatings/<int:team_id>', teamRatingsInstructor, name='teamRatingsInstructor'),
+    path('student/viewTeam/<int:team_id>', viewTeam, name='viewTeam'),
+    path('student/teamRatings/<int:team_id>', teamRatingsStudent, name='teamRatingsStudent'),
 ]
