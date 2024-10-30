@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Group</title>
+    <link rel="stylesheet" href="{% static 'mainApp/css/create_group.css' %}"> 
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Create a New Group</h1>
+            <form action="{% url 'instructor:createGroup' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <!-- Group Name -->
+                <div class="form-group">
+                    <label for="project_name">Group Name</label>
+                    <input type="text" name="project_name" id="project_name" required placeholder="Enter group name">
+                </div>
+                
+                <!-- Dynamic Usernames -->
+                <div id="usernames" class="form-group">
+                    <label for="user_name">Usernames</label>
+                    <input type="text" name="user_name[]" required placeholder="Enter username">
+                </div>
+                <button type="button" class="add-btn" onclick="addUsernameField()">Add another user</button>
+                
+                <!-- CSV Upload -->
+                <div class="form-group">
+                    <label for="csv_file">Upload CSV</label>
+                    <input type="file" name="csv_file" id="csv_file" accept=".csv">
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn">Create Group</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function addUsernameField() {
+            const usernamesDiv = document.getElementById("usernames");
+            const newField = document.createElement("input");
+            newField.setAttribute("type", "text");
+            newField.setAttribute("name", "user_name[]");
+            newField.setAttribute("placeholder", "Enter username");
+            usernamesDiv.appendChild(newField);
+        }
+    </script>
+</body>
+</html>
