@@ -1,0 +1,66 @@
+body {
+    font-family: New Century Schoolbook, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e4f1fe;
+    color: #333;
+}
+
+header {
+    display: flex; 
+    align-items: center; 
+    text-align: center;
+    background-color: #82acff;
+    color: white;
+    padding: 10px;
+} 
+
+img {
+    max-width:100%;
+    height:auto;
+    max-height:100%;
+}
+
+.logo {
+    width:40vw;
+}
+
+.header-content {
+    flex-grow: 0.5; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.settings {
+    margin-left: auto;
+}
+
+h1 {
+    margin: 0; 
+    text-align: center; 
+}
+
+#students {
+    display: flex;
+    flex-direction: column; /* Arranges student items vertically */
+    align-items: center; /* Centers the items horizontally */
+    justify-content: center; /* Centers the items vertically */
+    margin: 0 auto; /* Centers the #students div within its parent */
+    text-align: center; /* Centers text inside the div */
+    max-width: 800px; /* Optional: limits width to keep layout neat */
+    padding: 20px;
+    border: 1px solid #ddd; /* Optional: adds a border around the div */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow */
+}
+
+
+footer {
+    background-color: #82acff;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

@@ -1,0 +1,98 @@
+body {
+    font-family: New Century Schoolbook, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e9d4f9;
+    color: #333;
+}
+
+header {
+    display: flex; 
+    align-items: center; 
+    text-align: center;
+    background-color: #ca9af1;
+    color: white;
+    padding: 10px;
+}
+
+img {
+    max-width:100%;
+    height:auto;
+    max-height:100%;
+}
+
+.logo {
+    width:40vw;
+}
+
+.header-content {
+    flex-grow: 0.5; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.settings {
+    margin-left: auto;
+}
+
+h1 {
+    margin: 0; 
+    text-align: center; 
+}
+
+main {
+    padding: 20px;
+}
+
+.teams-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.team-block {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    width: 300px;
+    text-align: center;
+}
+
+.team-block:hover {
+    transform: translateY(-10px);
+}
+
+.team-block a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: 20px;
+}
+
+.team-block h3 {
+    margin: 10px 0;
+    font-size: 1.5rem;
+}
+
+.team-block button {
+    font-size: 1rem;
+    font-family: Optima, sans-serif	;
+    color: black;
+    background-color: #ac80f4;
+    border-color: #ac80f4;
+}
+
+footer {
+    background-color: #ca9af1;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
