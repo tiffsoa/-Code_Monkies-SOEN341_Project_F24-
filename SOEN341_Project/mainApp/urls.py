@@ -15,4 +15,6 @@ urlpatterns = [
     path('instructor/teamRatings/<int:team_id>', teamRatingsInstructor, name='teamRatingsInstructor'),
     path('student/viewTeam/<int:team_id>', viewTeam, name='viewTeam'),
     path('student/teamRatings/<int:team_id>', teamRatingsStudent, name='teamRatingsStudent'),
+    path('instructor/createGroup/', createGroupPage, name='createGroup'),
+
 ]
