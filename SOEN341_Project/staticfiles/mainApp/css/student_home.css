@@ -13,7 +13,7 @@ header {
     background-color: #82acff;
     color: white;
     padding: 10px;
-} 
+}
 
 img {
     max-width:100%;
@@ -41,27 +41,50 @@ h1 {
     text-align: center; 
 }
 
-#students {
+main {
+    padding: 20px;
+}
+
+.teams-container {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    margin: 0 auto; 
-    text-align: center; 
-    max-width: 300px; /* Adjust as needed */
-    width: 100%; /* Ensures it doesn't exceed max-width */
-    padding: 10px;
-    border: 1px solid #ddd; 
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 50px;
 }
 
-button {
-    background-color:#82acff;
-    border-color:#82acff;
+.team-block {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    width: 300px;
+    text-align: center;
 }
 
-button:hover{
-    text-decoration:underline;
+.team-block:hover {
+    transform: translateY(-10px);
+}
+
+.team-block a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    padding: 20px;
+}
+
+.team-block h3 {
+    margin: 10px 0;
+    font-size: 1.5rem;
+}
+
+.team-block button {
+    font-size: 1rem;
+    font-family: Optima, sans-serif	;
+    color: black;
+    background-color: #82acfe;
+    border-color: #82acfe;
 }
 
 footer {

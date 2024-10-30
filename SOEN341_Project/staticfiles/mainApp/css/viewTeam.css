@@ -43,26 +43,17 @@ h1 {
 
 #students {
     display: flex;
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
-    margin: 0 auto; 
-    text-align: center; 
-    max-width: 300px; /* Adjust as needed */
-    width: 100%; /* Ensures it doesn't exceed max-width */
-    padding: 10px;
-    border: 1px solid #ddd; 
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    flex-direction: column; /* Arranges student items vertically */
+    align-items: center; /* Centers the items horizontally */
+    justify-content: center; /* Centers the items vertically */
+    margin: 0 auto; /* Centers the #students div within its parent */
+    text-align: center; /* Centers text inside the div */
+    max-width: 800px; /* Optional: limits width to keep layout neat */
+    padding: 20px;
+    border: 1px solid #ddd; /* Optional: adds a border around the div */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow */
 }
 
-button {
-    background-color:#82acff;
-    border-color:#82acff;
-}
-
-button:hover{
-    text-decoration:underline;
-}
 
 footer {
     background-color: #82acff;
