@@ -5,38 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Group</title>
-    <link rel="stylesheet" href="{% static 'mainApp/css/create_group.css' %}"> 
+    <link rel="stylesheet" href="{% static 'mainApp/css/create_group.css' %}">
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <h1>Create a New Group</h1>
+    <div class="center-box">
+        <!-- Logo and Title -->
+        <img src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        <h2>Create a New Group</h2>
+
+        <!-- Error and Success Messages -->
+        {% if error %}
+            <div style="color:red;"><br>{{ error }}</div>
+        {% endif %}
+
+        {% if success %}
+            <div style="color:green;"><br>{{ success }}</div>
+        {% endif %}
+
+        <!-- Create Group Form -->
+        <form action="{% url 'createGroup' %}" method="post" enctype="multipart/form-data" class="create-group-form">
+            {% csrf_token %}
             
-                {% csrf_token %}
-                
-                <!-- Group Name -->
-                <div class="form-group">
-                    <label for="project_name">Group Name</label>
-                    <input type="text" name="project_name" id="project_name" required placeholder="Enter group name">
-                </div>
-                
-                <!-- Dynamic Usernames -->
-                <div id="usernames" class="form-group">
-                    <label for="user_name">Usernames</label>
-                    <input type="text" name="user_name[]" required placeholder="Enter username">
-                </div>
-                <button type="button" class="add-btn" onclick="addUsernameField()">Add another user</button>
-                
-                <!-- CSV Upload -->
-                <div class="form-group">
-                    <label for="csv_file">Upload CSV</label>
-                    <input type="file" name="csv_file" id="csv_file" accept=".csv">
-                </div>
-                
-                <!-- Submit Button -->
-                <button type="submit" class="submit-btn">Create Group</button>
-            </form>
-        </div>
+            <!-- Group Name -->
+            <input type="text" name="project_name" id="project_name" placeholder="Group Name" required>
+            
+            <!-- Dynamic Usernames -->
+            <div id="usernames">
+                <input type="text" name="user_name[]" placeholder="Enter username" required>
+            </div>
+            <button type="button" class="add-btn" onclick="addUsernameField()">Add another user</button>
+            
+            <!-- CSV Upload -->
+            <input type="file" name="csv_file" id="csv_file" accept=".csv">
+            
+            <!-- Submit Button -->
+            <button type="submit">Create Group</button>
+        </form>
+
+        <!-- Navigation Links -->
+        <button onclick="window.location.href='{% url 'instructorHomePage' %}'" class="back-btn">Back to Instructor Page</button>
+        <button onclick="window.location.href='{% url 'login' %}'" class="logout-btn">Logout</button>
     </div>
 
     <script>
