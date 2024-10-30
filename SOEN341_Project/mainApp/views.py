@@ -161,7 +161,7 @@ def createGroupPage(request):
             projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
             projectStudent.save()
         
-        return render(request, 'mainApp/homepageinstructor.html', {'session': request.session})
+        return render(request, 'mainApp/homepageinstructor.html', {'session': request.session, "success": "Group was created successfully."})
     return render(request, 'mainApp/createGroup.html', {'session': request.session})
 
 def createGroupCSV(request):
