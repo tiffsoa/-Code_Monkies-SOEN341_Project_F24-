@@ -147,29 +147,23 @@ def createGroupPage(request):
         projectName = request.POST.get('project_name')
         userList = request.POST.getlist('user_name[]')
         idList = []
-        if Projects.objects.filter(project_name = projectName).exists() == False:
-            for user in userList:
-                if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
-                    userExists = MyUser.objects.get(username=user)
-                    id = userExists.id
-                    idList.append(id) #if they exist, add their student id to the id list
-                elif MyUser.objects.filter(username=user, instructor = 1).exists():
-                    return render(request, 'mainApp/createGroup.html', {'error': user + ' is an instructor.'}) #Error message if user is an instructor
-                else:
-                    return render(request, 'mainApp/createGroup.html', {'error': user + ' does not exist.'}) #Error message if user doesn't exist
-            newProject = Projects(project_name = projectName, open = True, instructor_id  = request.session.get('user_id'))
-            newProject.save() #Saving project to database
+        for user in userList:
+            if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
+                userExists = MyUser.objects.get(username=user)
+                id = userExists.id
+                idList.append(id) #if they exist, add their student id to the id list
+            else:
+                return render(request, 'mainApp/createGroup.html', {'error': user + 'does not exist.'}) #Error message if user doesn't exist
+        newProject = Projects(project_name = projectName, open = True, instructor_id  = request.session.get('user_id'))
+        newProject.save() #Saving project to database
 
-            projectID = newProject.id #Retrieve new project id
+        projectID = newProject.id #Retrieve new project id
 
-            for id in idList: #iterate through all ids and create their relationship with their respective projects
-                projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
-                projectStudent.save()
-            
-            return redirect('instructorHomePage')
-        else:
-            return render(request, 'mainApp/createGroup.html', {'error': projectName + ' already exists.'})
-    
+        for id in idList: #iterate through all ids and create their relationship with their respective projects
+            projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
+            projectStudent.save()
+        
+        return render(request, 'mainApp/homepageinstructor.html', {'session': request.session, "success": "Group was created successfully."})
     return render(request, 'mainApp/createGroup.html', {'session': request.session})
 
 def createGroupCSV(request):
@@ -209,8 +203,7 @@ def createGroupCSV(request):
             logging.getLogger("error_logger").error("Unable to upload file. "+repr(e))
             return render(request, 'mainApp/createGroup.html', {'error': 'Unable to upload file' + repr(e)})
 
-        return redirect('instructorHomePage')
-    
+        return render(request, 'mainApp/homepageinstructor.html', {'session': request.session})
     return render(request, 'mainApp/createGroup.html', {'session': request.session})
         
 
