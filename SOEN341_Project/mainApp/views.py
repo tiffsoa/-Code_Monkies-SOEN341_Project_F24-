@@ -270,7 +270,7 @@ def RateTeammate(request, team_id, teammate_id): #Mohammed part
         # Validate each rating
         ratings = [score_cooperation, score_conceptual, score_practical, score_workethic]
         if not all(ratings) or any(int(rating) not in range(1, 6) for rating in ratings):
-            return render(request, 'mainApp/rate_teammate.html', {
+            return render(request, 'mainApp/assess.html', {
                 'error': 'Invalid rating. Please provide a rating between 1 and 5 for all categories.',
                 'session': request.session
             })
@@ -292,7 +292,7 @@ def RateTeammate(request, team_id, teammate_id): #Mohammed part
     
     # If the request is GET, render the rating page
     teammate_name = MyUser.objects.get(id=teammate_id).name
-    return render(request, 'mainApp/rate_teammate.html', {'teammate_name': teammate_name, 'session': request.session})
+    return render(request, 'mainApp/assess.html', {'teammate_name': teammate_name, 'session': request.session})
 
 
      
