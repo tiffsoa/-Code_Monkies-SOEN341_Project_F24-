@@ -25,7 +25,7 @@
         <!-- CSV Upload Form -->
         <h3>Upload CSV File to Create Group</h3>
 
-            <form action="{% url 'createGroup' %}" method="post" class="create-group-form">
+            <form action="{% url 'createGroup' %}" method="post" class="create-group-form" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="file" name="csv_file" id="csv_file" accept=".csv" required>
                 <button type="submit">Upload CSV</button>

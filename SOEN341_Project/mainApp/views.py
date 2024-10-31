@@ -145,7 +145,7 @@ def teamRatingsStudent(request, team_id):
 def createGroupPage(request):
     if request.method == 'POST':
         if 'csv_file' in request.POST: # Passing on to groupCreationCSV causes errors so i copypasted the function here for now
-            csv_file = request.FILES["csv_file"]
+            csv_file = request.POST.get("csv_file")
             if not csv_file.name.endswith('.csv'): #if not a .csv file
                 return render(request, 'mainApp/createGroup.html', {'error': 'File is not a .csv'})
             if csv_file.multiple_chunks(): #if the file is too large
@@ -211,7 +211,7 @@ def createGroupPage(request):
 def createGroupCSV(request): # IGNORE THIS FOR NOW
     if request.method == 'POST':
         
-        csv_file = request.FILES["csv_file"]
+        csv_file = request.POST.get("csv_file")
         if not csv_file.name.endswith('.csv'): #if not a .csv file
             return render(request, 'mainApp/createGroup.html', {'error': 'File is not a .csv'})
         if csv_file.multiple_chunks(): #if the file is too large
