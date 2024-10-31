@@ -185,7 +185,10 @@ def createGroupCSV(request):
 
             lines = file_data.split("\n")
     
-            for line in lines:	#loop over the lines and save them in db.		
+            for line in lines:	#loop over the lines and save them in db.
+                line = line.strip()  # Remove any leading/trailing whitespace
+                if not line:  # Skip empty lines
+                    continue		
                 fields = line.split(",")
                 groupName = fields[0]
                 idList = []
