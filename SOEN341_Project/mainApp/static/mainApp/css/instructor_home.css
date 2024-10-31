@@ -1,50 +1,57 @@
+/* Full-page Background */
 body {
-    font-family: New Century Schoolbook, serif;
     margin: 0;
     padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'New Century Schoolbook', serif;
     background-color: #e9d4f9;
     color: #333;
 }
 
+/* Header */
 header {
-    display: flex; 
-    align-items: center; 
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
     background-color: #ca9af1;
     color: white;
-    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-img {
-    max-width:100%;
-    height:auto;
-    max-height:100%;
+header img.logo {
+    width: 100px;
+    height: auto;
 }
 
-.logo {
-    width:40vw;
+header h1 {
+    font-size: 24px;
+    margin: 0;
 }
 
-.header-content {
-    flex-grow: 0.5; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
+header .settings button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
 }
 
-.settings {
-    margin-left: auto;
+/* Centered Container */
+.center-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
 }
 
-h1 {
-    margin: 0; 
-    text-align: center; 
-}
-
-main {
-    padding: 20px;
-}
-
+/* Team Blocks */
 .teams-container {
     display: flex;
     flex-wrap: wrap;
@@ -79,20 +86,132 @@ main {
     font-size: 1.5rem;
 }
 
-.team-block button {
-    font-size: 1rem;
-    font-family: Optima, sans-serif	;
-    color: black;
-    background-color: #ac80f4;
-    border-color: #ac80f4;
+/* Form and Button Styles */
+.create-group-form, .center-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
 }
 
+.create-group-form input[type="text"],
+.create-group-form input[type="file"] {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f8f8fc;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.create-group-form input[type="text"]:focus,
+.create-group-form input[type="file"]:focus {
+    border-color: #ca9af1;
+    box-shadow: 0 0 5px rgba(202, 154, 241, 0.5);
+    outline: none;
+}
+
+/* Primary Button Styles */
+.create-group-form button,
+.back-btn,
+.logout-btn,
+.add-btn {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #ac80f4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Optima', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.create-group-form button:hover,
+.back-btn:hover,
+.logout-btn:hover,
+.add-btn:hover {
+    background-color: #8b5fc6;
+    transform: translateY(-2px);
+}
+
+/* Add User Button */
+.add-btn {
+    background-color: #28a745;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.add-btn:hover {
+    background-color: #1e7a38;
+}
+
+/* Navigation Buttons */
+.logout-btn, .back-btn {
+    background-color: #6c757d;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.logout-btn:hover, .back-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Create Group Button Container */
+.create-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* Create Group Button Style */
+.create-group-btn {
+    padding: 18px 36px; /* Larger padding for a prominent button */
+    font-size: 20px; /* Increased font size for a standout look */
+    background-color: #ac80f4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Optima', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.create-group-btn:hover {
+    background-color: #8b5fc6; /* Darker shade on hover */
+    transform: translateY(-3px); /* Slight lift on hover */
+}
+
+/* Footer */
 footer {
     background-color: #ca9af1;
     color: white;
     text-align: center;
     padding: 10px 0;
+    font-size: 14px;
     position: fixed;
     bottom: 0;
     width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Error and Success Messages */
+.error, .success {
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
 }

@@ -22,8 +22,20 @@
             <div style="color:green;"><br>{{ success }}</div>
         {% endif %}
 
-        <!-- Create Group Form -->
-        <form action="{% url 'createGroup' %}" method="post" enctype="multipart/form-data" class="create-group-form">
+        <!-- CSV Upload Form -->
+        <h3>Upload CSV File to Create Group</h3>
+        
+            {% csrf_token %}
+            <input type="file" name="csv_file" id="csv_file" accept=".csv" required>
+            <button type="submit">Upload CSV</button>
+        </form>
+
+        <!-- Divider -->
+        <hr>
+
+        <!-- Manual Create Group Form -->
+        <h3>Manually Create a Group</h3>
+        <form action="{% url 'createGroup' %}" method="post" class="create-group-form">
             {% csrf_token %}
             
             <!-- Group Name -->
@@ -35,16 +47,13 @@
             </div>
             <button type="button" class="add-btn" onclick="addUsernameField()">Add another user</button>
             
-            <!-- CSV Upload -->
-            <input type="file" name="csv_file" id="csv_file" accept=".csv">
-            
             <!-- Submit Button -->
             <button type="submit">Create Group</button>
         </form>
 
         <!-- Navigation Links -->
         <button onclick="window.location.href='{% url 'instructorHomePage' %}'" class="back-btn">Back to Instructor Page</button>
-        <button type=“button” onclick="location.href='{% url 'logout' %}';"> Logout </button>
+        <button type="button" onclick="location.href='{% url 'logout' %}';"> Logout </button>
     </div>
 
     <script>
