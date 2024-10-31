@@ -31,7 +31,7 @@
             {% for name, id in student.items %}
             <div>
                 <p>Name: {{ name }}, ID: {{ id }}</p>
-                <button href="assess.html">Assess Student</button>
+                <button type=“button” onclick="location.href='{% url 'RateTeammate' teamID id %}';">Assess Student</button>
             </div>
             {% endfor %}
         {% endfor %}

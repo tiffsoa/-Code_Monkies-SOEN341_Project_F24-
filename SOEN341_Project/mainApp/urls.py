@@ -16,5 +16,5 @@ urlpatterns = [
     path('student/viewTeam/<int:team_id>', viewTeam, name='viewTeam'),
     path('student/teamRatings/<int:team_id>', teamRatingsStudent, name='teamRatingsStudent'),
     path('instructor/createGroup/', createGroupPage, name='createGroup'),
-
+    path('student/rateMember/<int:team_id>/<int:teammate_id>', RateTeammate, name='RateTeammate'),
 ]
