@@ -24,7 +24,7 @@ body {
 
 /* Logo */
 .logo {
-    width: 150px;
+    width: 400px; /* Increased size for larger appearance */
     height: auto;
     margin-bottom: 20px;
 }
@@ -74,7 +74,6 @@ body {
 .csv-upload-form button,
 .create-group-form button,
 .back-btn,
-.logout-btn,
 .add-btn {
     padding: 12px;
     font-size: 16px;
@@ -92,7 +91,6 @@ body {
 .csv-upload-form button:hover,
 .create-group-form button:hover,
 .back-btn:hover,
-.logout-btn:hover,
 .add-btn:hover {
     background-color: #357abd;
     transform: translateY(-2px);
@@ -109,14 +107,14 @@ body {
     background-color: #1e7a38;
 }
 
-/* Navigation Buttons */
-.logout-btn, .back-btn {
+/* Back Button & Logout Button */
+.back-btn {
     background-color: #6c757d;
     color: #fff;
     margin-top: 10px;
 }
 
-.logout-btn:hover, .back-btn:hover {
+.back-btn:hover {
     background-color: #5a6268;
 }
 

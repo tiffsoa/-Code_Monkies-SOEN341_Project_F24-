@@ -11,6 +11,7 @@
     <div class="center-box">
         <!-- Logo and Title -->
         <img src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
+
         <h2>Create a New Group</h2>
 
         <!-- Error and Success Messages -->
@@ -53,7 +54,8 @@
 
         <!-- Navigation Links -->
         <button onclick="window.location.href='{% url 'instructorHomePage' %}'" class="back-btn">Back to Instructor Page</button>
-        <button type="button" onclick="location.href='{% url 'logout' %}';"> Logout </button>
+        <button type="button" onclick="location.href='{% url 'logout' %}';" class="back-btn">Logout</button>
+        
     </div>
 
     <script>
