@@ -38,6 +38,7 @@
                 <h3>{{ project.is_open|yesno:"Open,Closed" }}</h3>
                 <button type=“button” onclick="location.href='{% url 'CloseOpenTeam' project.project_id %}';"> Close/Open Team </button>
                 <button type=“button” onclick="location.href='{% url 'teamRatingsInstructor' project.project_id %}';"> See ratings </button>
+                <button type="button" onclick="location.href='{% url 'createGroup' %}';" class="create-group-btn">Create Group</button>
                 </a>                       
                 </div>
             {% endfor %}
