@@ -30,6 +30,7 @@ jobs:
         env:
           DJANGO_SETTINGS_MODULE: "mainApp.settings"  # Ensure this matches your Django settings file
         run: |
+          cd SOEN341_Project
           python manage.py migrate --noinput
           python manage.py test -v 2  # Verbose output for debugging
 
