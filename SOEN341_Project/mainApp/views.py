@@ -144,8 +144,8 @@ def teamRatingsStudent(request, team_id):
 
 def createGroupPage(request):
     if request.method == 'POST':
-        if 'csv_file' in request.POST: # Passing on to groupCreationCSV causes errors so i copypasted the function here for now
-            csv_file = request.POST.get("csv_file")
+        if 'csv_file' in request.FILES: # Passing on to groupCreationCSV causes errors so i copypasted the function here for now
+            csv_file = request.FILES.get("csv_file")
             if not csv_file.name.endswith('.csv'): #if not a .csv file
                 return render(request, 'mainApp/createGroup.html', {'error': 'File is not a .csv'})
             if csv_file.multiple_chunks(): #if the file is too large
@@ -161,6 +161,8 @@ def createGroupPage(request):
                     continue		
                 fields = line.split(",")
                 groupName = fields[0]
+                if Projects.objects.filter(project_name = groupName).exists() == True: #If group name already exists (proper error handling at a later sprint)
+                        continue
                 idList = []
                 for user in fields[1:]: #generally the same process as normal group creation
                     if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
