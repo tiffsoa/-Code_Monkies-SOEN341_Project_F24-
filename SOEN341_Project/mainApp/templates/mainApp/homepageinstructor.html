@@ -1,49 +1,43 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Peer Assessment - Instructor Homepage</title>
-    {% load static %}
-    <!-- for every html file, do not forget "{% load static %}" as our css and images are in the static folder-->
-    <link rel="stylesheet" href="{% static 'mainApp/css/instructor_home.css' %}"> 
-    <!-- Be mindful of folder structures when referencing paths -->
+    <link rel="stylesheet" href="{% static 'mainApp/css/instructor_home.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     <header>
-        <img style="max-width: 400px;"src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
-        <!-- Be mindful of folder structures when referencing paths -->
+        <div class="logo-container">
+            <img src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        </div>
         <div class="header-content">
             <h1>Peer Assessment</h1>
-            <br>
             <p>Welcome, Instructor! Here are your students' teams. Click on any team to view and open or close teams.</p>
         </div>
-        <!--The settings, logout button and others are just for the layout for the moment, they will hold a function for the next sprints.-->
         <div class="settings">
-            <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
-            <button type=“button” onclick="location.href='{% url 'logout' %}';"> Logout </button>
+            <button style="font-size:20px"><i class="fa fa-gear"></i></button>
+            <button type="button" onclick="location.href='{% url 'logout' %}';" class="logout-btn">Logout</button>
         </div>
     </header>
-    
+
     <main>
         <div class="teams-container">
             {% for project in projects %}
                 <div class="team-block">
-                <a>    
-                <h3>{{ project.project_name }}</h3>
-                <h3>{{ project.is_open|yesno:"Open,Closed" }}</h3>
-                <button type=“button” onclick="location.href='{% url 'CloseOpenTeam' project.project_id %}';"> Close/Open Team </button>
-                <button type=“button” onclick="location.href='{% url 'teamRatingsInstructor' project.project_id %}';"> See ratings </button>
-                </a>                       
+                    <a>
+                        <h3>{{ project.project_name }}</h3>
+                        <h3>{{ project.is_open|yesno:"Open,Closed" }}</h3>
+                        <button type="button" onclick="location.href='{% url 'CloseOpenTeam' project.project_id %}';"> Close/Open Team </button>
+                        <button type="button" onclick="location.href='{% url 'teamRatingsInstructor' project.project_id %}';"> See ratings </button>
+                    </a>                       
                 </div>
             {% endfor %}
         </div>
         <div class="create-group">
             <button type="button" onclick="location.href='{% url 'createGroup' %}';" class="create-group-btn">Create Group</button>
         </div>
-        
-        
     </main>
 
     <footer>

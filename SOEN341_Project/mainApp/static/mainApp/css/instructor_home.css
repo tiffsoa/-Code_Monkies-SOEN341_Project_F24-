@@ -2,7 +2,7 @@
 body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     font-family: 'New Century Schoolbook', serif;
@@ -13,42 +13,55 @@ body {
 /* Header */
 header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 15px 30px;
+    padding: 20px 30px;
     background-color: #ca9af1;
     color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    justify-content: center; /* Centers all header content */
+    position: relative;
 }
 
-header img.logo {
-    width: 100px;
+/* Logo Container */
+.logo-container {
+    position: absolute;
+    left: 30px; /* Shift towards the left */
+    top: 20px;
+}
+
+.logo {
+    width: 300px; /* Larger logo size */
     height: auto;
 }
 
-header h1 {
-    font-size: 24px;
+/* Centered Title and Subtitle */
+.header-content {
+    text-align: center;
+}
+
+.header-content h1 {
+    font-size: 32px; /* Larger font size for title */
     margin: 0;
 }
 
-header .settings button {
+.header-content p {
+    font-size: 18px; /* Larger font size for subtitle */
+    margin: 5px 0 0;
+}
+
+/* Settings Button Position */
+.settings {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+}
+
+.settings button {
     font-size: 20px;
     background: none;
     border: none;
     color: white;
     cursor: pointer;
-}
-
-/* Centered Container */
-.center-box {
-    background-color: white;
-    padding: 40px;
-    border-radius: 15px;
-    text-align: center;
-    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 500px;
-    margin: auto;
 }
 
 /* Team Blocks */
@@ -150,17 +163,6 @@ header .settings button {
     background-color: #1e7a38;
 }
 
-/* Navigation Buttons */
-.logout-btn, .back-btn {
-    background-color: #6c757d;
-    color: #fff;
-    margin-top: 10px;
-}
-
-.logout-btn:hover, .back-btn:hover {
-    background-color: #5a6268;
-}
-
 /* Create Group Button Container */
 .create-group {
     display: flex;
@@ -170,8 +172,8 @@ header .settings button {
 
 /* Create Group Button Style */
 .create-group-btn {
-    padding: 18px 36px; /* Larger padding for a prominent button */
-    font-size: 20px; /* Increased font size for a standout look */
+    padding: 18px 36px;
+    font-size: 20px;
     background-color: #ac80f4;
     color: white;
     border: none;
@@ -184,8 +186,8 @@ header .settings button {
 }
 
 .create-group-btn:hover {
-    background-color: #8b5fc6; /* Darker shade on hover */
-    transform: translateY(-3px); /* Slight lift on hover */
+    background-color: #8b5fc6;
+    transform: translateY(-3px);
 }
 
 /* Footer */
@@ -193,25 +195,9 @@ footer {
     background-color: #ca9af1;
     color: white;
     text-align: center;
-    padding: 10px 0;
-    font-size: 14px;
-    position: fixed;
-    bottom: 0;
+    padding: 15px 0;
+    font-size: 18px; /* Increased font size */
     width: 100%;
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Error and Success Messages */
-.error, .success {
-    font-size: 14px;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.error {
-    color: red;
-}
-
-.success {
-    color: green;
+    margin-top: auto;
 }
