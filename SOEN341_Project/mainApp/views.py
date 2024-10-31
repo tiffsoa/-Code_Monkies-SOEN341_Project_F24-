@@ -248,7 +248,7 @@ def logout(request):
         return redirect('login')
 
 
-def RateTeammate(request, team_id, teammate_id): #Mohammed Rating Part.
+def RateTeammate(request, team_id, teammate_id): #Mohammed Rating Part Function
     user_id = request.session.get('user_id')
     
     # Step 1: Check if the user is logged in
