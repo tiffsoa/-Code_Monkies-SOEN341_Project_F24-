@@ -87,6 +87,23 @@ main {
     border-color: #ac80f4;
 }
 
+.create-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.create-group button {
+    font-size: 1rem;
+    font-family: Optima, sans-serif	;
+    color: black;
+    background-color: #ac80f4;
+    border-color: #ac80f4;
+    text-align: center
+}
+
 footer {
     background-color: #ca9af1;
     color: white;
