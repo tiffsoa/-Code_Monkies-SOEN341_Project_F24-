@@ -241,7 +241,6 @@ def register(request): #register main method to function "Backend"
     return render(request, 'mainApp/register.html', {'session': request.session})
 
 def logout(request):
-    if request.method == "POST": 
         del request.session['user_id']
         del request.session['name']
         # Logout message to be revisited for a later sprint: return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})

@@ -18,10 +18,7 @@
         </div>
         <div class="settings">
             <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
-            <form action="logout" method="POST"> 
-                {% csrf_token %}
-                <button type=“button” onclick="location.href='{% url 'logout' %}';"> Logout </button>
-            </form>
+            <button type=“button” onclick="location.href='{% url 'logout' %}';"> Logout </button>
         </div>
     </header>
     
