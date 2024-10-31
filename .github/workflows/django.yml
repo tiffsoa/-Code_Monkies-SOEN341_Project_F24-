@@ -26,7 +26,7 @@ jobs:
 
       - name: Run Migrations and Tests
         run: |
-          python manage.py migrate
+          python manage.py SOEN341_Project/migrate
           python manage.py test
 
 
