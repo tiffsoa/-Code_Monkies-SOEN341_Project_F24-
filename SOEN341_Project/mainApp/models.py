@@ -22,6 +22,16 @@ class Projects_to_Student_Relationships(models.Model):
     project_id = models.IntegerField()
     student_id = models.IntegerField()
 
+class TeamRatings(models.Model):
+    id = models.AutoField(primary_key=True)
+    team_id = models.IntegerField()
+    rater_id = models.IntegerField()
+    rated_id = models.IntegerField()
+    rating = models.IntegerField()
+
+    class Meta:
+        unique_together = ('team_id', 'rater_id', 'rated_id')  # Ensures each user can rate each teammate only once
+
 class Ratings(models.Model):
     id = models.AutoField(primary_key=True) #each rating should have a unique id in the database
     project_id_rating_is_for = models.IntegerField()
