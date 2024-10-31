@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.8, 3.9]
+        python-version: [3.8, 3.9, 3.10]
 
     steps:
       - uses: actions/checkout@v4
@@ -22,13 +22,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # No need to set up DATABASE_URL for SQLite, as Django defaults to SQLite
-
       - name: Run Migrations and Tests
+        env:
+          DJANGO_SETTINGS_MODULE: "mainApp.settings"  # Replace with your project name if different
         run: |
-          cd SOEN341_Project
-          python manage.py migrate
-          python manage.py test
+          python manage.py migrate --noinput
+          python manage.py test -v 2  # Verbose output for debugging
+
 
 
 
