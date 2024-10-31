@@ -144,6 +144,44 @@ def teamRatingsStudent(request, team_id):
 
 def createGroupPage(request):
     if request.method == 'POST':
+        if 'csv_file' in request.FILES: # Passing on to groupCreationCSV causes errors so i copypasted the function here for now
+            csv_file = request.FILES.get("csv_file")
+            if not csv_file.name.endswith('.csv'): #if not a .csv file
+                return render(request, 'mainApp/createGroup.html', {'error': 'File is not a .csv'})
+            if csv_file.multiple_chunks(): #if the file is too large
+                return render(request, 'mainApp/createGroup.html', {'error': 'File is too large'})
+
+            file_data = csv_file.read().decode("utf-8")	#read the file	
+
+            lines = file_data.split("\n")
+
+            for line in lines:	#loop over the lines and save them in db.
+                line = line.strip()  # Remove any leading/trailing whitespace
+                if not line:  # Skip empty lines
+                    continue		
+                fields = line.split(",")
+                groupName = fields[0]
+                if Projects.objects.filter(project_name = groupName).exists() == True: #If group name already exists (proper error handling at a later sprint)
+                        continue
+                idList = []
+                for user in fields[1:]: #generally the same process as normal group creation
+                    if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
+                        userExists = MyUser.objects.get(username=user)
+                        id = userExists.id
+                        idList.append(id)
+                    else:
+                        return render(request, 'mainApp/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
+                newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
+                newProject.save() #Saving project to database
+
+                projectID = newProject.id #Retrieve new project id
+
+                for id in idList: #iterate through all ids and create their relationship with their respective projects
+                        projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
+                        projectStudent.save()
+                return redirect('instructorHomePage')
+            return render(request, 'mainApp/createGroup.html', {'session': request.session})
+        
         projectName = request.POST.get('project_name')
         userList = request.POST.getlist('user_name[]')
         idList = []
@@ -172,43 +210,41 @@ def createGroupPage(request):
     
     return render(request, 'mainApp/createGroup.html', {'session': request.session})
 
-def createGroupCSV(request):
+def createGroupCSV(request): # IGNORE THIS FOR NOW
     if request.method == 'POST':
-        try:
-            csv_file = request.FILES["csv_file"]
-            if not csv_file.name.endswith('.csv'): #if not a .csv file
-                return render(request, 'mainApp/createGroup.html', {'error': 'File is not a .csv'})
-            if csv_file.multiple_chunks(): #if the file is too large
-                return render(request, 'mainApp/createGroup.html', {'error': 'File is too large'})
+        
+        csv_file = request.POST.get("csv_file")
+        if not csv_file.name.endswith('.csv'): #if not a .csv file
+            return render(request, 'mainApp/createGroup.html', {'error': 'File is not a .csv'})
+        if csv_file.multiple_chunks(): #if the file is too large
+            return render(request, 'mainApp/createGroup.html', {'error': 'File is too large'})
 
-            file_data = csv_file.read().decode("utf-8")	#read the file	
+        file_data = csv_file.read().decode("utf-8")	#read the file	
 
-            lines = file_data.split("\n")
-    
-            for line in lines:	#loop over the lines and save them in db.		
-                fields = line.split(",")
-                groupName = fields[0]
-                idList = []
-                for user in fields[1:]: #generally the same process as normal group creation
-                    if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
-                        userExists = MyUser.objects.get(username=user)
-                        id = userExists.id
-                        idList.append(id)
-                    else:
-                        return render(request, 'mainApp/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
-                newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
-                newProject.save() #Saving project to database
+        lines = file_data.split("\n")
 
-                projectID = newProject.id #Retrieve new project id
+        for line in lines:	#loop over the lines and save them in db.
+            line = line.strip()  # Remove any leading/trailing whitespace
+            if not line:  # Skip empty lines
+                continue		
+            fields = line.split(",")
+            groupName = fields[0]
+            idList = []
+            for user in fields[1:]: #generally the same process as normal group creation
+                if MyUser.objects.filter(username=user, instructor = 0).exists(): #check if the student users on the list exist in the database
+                    userExists = MyUser.objects.get(username=user)
+                    id = userExists.id
+                    idList.append(id)
+                else:
+                    return render(request, 'mainApp/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
+            newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
+            newProject.save() #Saving project to database
 
-                for id in idList: #iterate through all ids and create their relationship with their respective projects
-                     projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
-                     projectStudent.save()
-                
-        except Exception as e: #Error handling if unable to upload file for any reason
-            logging.getLogger("error_logger").error("Unable to upload file. "+repr(e))
-            return render(request, 'mainApp/createGroup.html', {'error': 'Unable to upload file' + repr(e)})
+            projectID = newProject.id #Retrieve new project id
 
+            for id in idList: #iterate through all ids and create their relationship with their respective projects
+                    projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
+                    projectStudent.save()
         return redirect('instructorHomePage')
     
     return render(request, 'mainApp/createGroup.html', {'session': request.session})
