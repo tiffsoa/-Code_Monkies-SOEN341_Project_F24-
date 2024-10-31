@@ -248,3 +248,42 @@ def logout(request):
         return redirect('login')
 
 
+def RateTeammate(request, team_id, teammate_id): #Mohammed Rating Part Function
+    user_id = request.session.get('user_id')
+    
+    # Step 1: Check if the user is logged in
+    if not user_id:
+        return redirect('login')  # Redirect to login page
+    
+    # Step 2: Check if the student has already rated the teammate for the specified project
+    if TeamRatings.objects.filter(rater_id=user_id, team_id=team_id, rated_id=teammate_id).exists():
+        # If rating already exists, redirect to the "students in team" page
+        return redirect('viewTeam', team_id=team_id)
+    
+    # Step 3: Handle GET and POST requests for the rating page
+    if request.method == 'POST':
+        # Extract rating value from the form submission
+        rating_value = request.POST.get('rating')
+        
+        # Validate the rating value if necessary (e.g., within a range)
+        if not rating_value or int(rating_value) not in range(1, 6):
+            return render(request, 'mainApp/rate_teammate.html', {'error': 'Invalid rating. Please provide a rating between 1 and 5.', 'session': request.session})
+        
+        # Step 4: Create or update the rating in the database
+        rating_record = TeamRatings(
+            rater_id=user_id,
+            team_id=team_id,
+            rated_id=teammate_id,
+            rating=rating_value
+        )
+        rating_record.save()
+        
+        # Redirect back to the "students in team" page
+        return redirect('viewTeam', team_id=team_id)
+    
+    # If the request is GET, render the rating page
+    teammate_name = MyUser.objects.get(id=teammate_id).name
+    return render(request, 'mainApp/rate_teammate.html', {'teammate_name': teammate_name, 'session': request.session})
+
+     
+
