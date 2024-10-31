@@ -28,7 +28,12 @@
                 <p>Name: {{ name }}, ID: {{ id }}, in team {{ teamName }}</p>
             {% endfor %}
         {% endfor %}
+        {% if error %}
+            <div style="color:red;"><br>{{ error }}</div>
+            {% endif %}
         <div class="rating-group">
+            <form method="POST">
+                {% csrf_token %}
             <p>Cooperation: </p>
             <input type="radio" id="cooperation5" name="Cooperation" value="5">
             <label for="cooperation5">5</label>
@@ -77,6 +82,12 @@
             <input type="radio" id="ethic1" name="WorkEthic" value="1">
             <label for="ethic1">1</label> <br><br>
         </div>
+        Comments:
+        <br>
+        <textarea name="message" rows="10" cols="30">
+        </textarea>    
+        <input type="submit" value="Submit">
+    </form>
     </div>
 
     <footer>

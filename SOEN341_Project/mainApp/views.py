@@ -299,16 +299,16 @@ def RateTeammate(request, team_id, teammate_id): #Mohammed part
     
     # Step 2: Check if the student has already rated the teammate for the specified team
     if TeamRatings.objects.filter(rater_id=user_id, team_id=team_id, rated_id=teammate_id).exists():
-        return redirect('viewTeam', team_id=team_id)
+        return redirect('viewTeam', team_id=team_id,)
     
     # Step 3: Handle GET and POST requests for the rating page
     if request.method == 'POST':
         # Extract multiple ratings from the form submission
-        score_cooperation = request.POST.get('score_cooperation')
-        score_conceptual = request.POST.get('score_conceptual')
-        score_practical = request.POST.get('score_practical')
-        score_workethic = request.POST.get('score_workethic')
-        comment = request.POST.get('comment', '')
+        score_cooperation = request.POST.get('Cooperation')
+        score_conceptual = request.POST.get('ConceptualContribution')
+        score_practical = request.POST.get('PracticalContribution')
+        score_workethic = request.POST.get('WorkEthic')
+        comment = request.POST.get('message', '')
 
         # Validate each rating
         ratings = [score_cooperation, score_conceptual, score_practical, score_workethic]
