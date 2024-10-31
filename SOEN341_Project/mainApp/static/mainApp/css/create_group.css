@@ -29,16 +29,31 @@ body {
     margin-bottom: 20px;
 }
 
+/* Divider */
+.center-box hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* Form Titles */
+.center-box h3 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
 /* Form and Button Styles */
-.create-group-form, .center-box form {
+.csv-upload-form,
+.create-group-form {
     display: flex;
     flex-direction: column;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.create-group-form input[type="text"],
-.create-group-form input[type="file"] {
+.csv-upload-form input[type="file"],
+.create-group-form input[type="text"] {
     padding: 12px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -49,20 +64,21 @@ body {
     transition: border-color 0.3s ease;
 }
 
-.create-group-form input[type="text"]:focus,
-.create-group-form input[type="file"]:focus {
-    border-color: #ca9af1;
+.csv-upload-form input[type="file"]:focus,
+.create-group-form input[type="text"]:focus {
+    border-color: #a0b3c5;
     outline: none;
 }
 
 /* Primary Button Styles */
+.csv-upload-form button,
 .create-group-form button,
 .back-btn,
 .logout-btn,
 .add-btn {
     padding: 12px;
     font-size: 16px;
-    background-color: #ac80f4;
+    background-color: #4a90e2;
     color: white;
     border: none;
     border-radius: 5px;
@@ -73,11 +89,12 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.csv-upload-form button:hover,
 .create-group-form button:hover,
 .back-btn:hover,
 .logout-btn:hover,
 .add-btn:hover {
-    background-color: #8b5fc6;
+    background-color: #357abd;
     transform: translateY(-2px);
 }
 
