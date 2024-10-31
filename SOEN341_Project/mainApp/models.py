@@ -27,10 +27,15 @@ class TeamRatings(models.Model):
     team_id = models.IntegerField()
     rater_id = models.IntegerField()
     rated_id = models.IntegerField()
-    rating = models.IntegerField()
+    score_cooperation = models.IntegerField()
+    score_conceptual = models.IntegerField()
+    score_practical = models.IntegerField()
+    score_workethic = models.IntegerField()
+    comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
-        unique_together = ('team_id', 'rater_id', 'rated_id')  # Ensures each user can rate each teammate only once
+        unique_together = ('team_id', 'rater_id', 'rated_id')  # Ensures unique rating per team/teammate pair
+
 
 class Ratings(models.Model):
     id = models.AutoField(primary_key=True) #each rating should have a unique id in the database
