@@ -27,10 +27,10 @@ class TeamRatings(models.Model):
     team_id = models.IntegerField()
     rater_id = models.IntegerField()
     rated_id = models.IntegerField()
-    score_cooperation = models.IntegerField()
-    score_conceptual = models.IntegerField()
-    score_practical = models.IntegerField()
-    score_workethic = models.IntegerField()
+    score_cooperation = models.IntegerField(max_length=1)
+    score_conceptual = models.IntegerField(max_length=1)
+    score_practical = models.IntegerField(max_length=1)
+    score_workethic = models.IntegerField(max_length=1)
     comment = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
