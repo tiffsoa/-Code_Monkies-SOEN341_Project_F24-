@@ -76,11 +76,21 @@ def CloseOpenTeam(request, team_id):
     #placeholder
     return redirect('instructorHomePage')
 
-def teamRatingsInstructor(request, team_id):
+def instructorTeamRatings(request, team_id):
     #placeholder
-    return redirect('instructorHomePage')
+    return render(request, 'mainApp/instructorTeamRatings.html')
 
+def instructorTeamRatingsDownload(request, team_id):
+    #placeholder
+    return render(request, 'mainApp/instructorTeamRatings.html')
 
+def instructorOverallRatings(request, team_id):
+    #placeholder
+    return render(request, 'mainApp/instructorOverallRatings.html')
+
+def instructorOverallRatingsDownload(request, team_id):
+    #placeholder
+    return render(request, 'mainApp/instructorOverallRatings.html')
 
 def student_home_view(request):
     # Step 1: Retrieve the user ID from session
@@ -138,9 +148,12 @@ def viewTeam(request, team_id):
     #i.e. context looks something like {'students':["name1":id1,"name2":id2,"name3",id3]}
     return render(request, 'mainApp/students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
 
-def teamRatingsStudent(request, team_id):
+def studentTeamRatings(request, team_id):
+    return render(request, 'mainApp/studentTeamRatings.html')
+
+def studentTeamRatingsDownload(request, team_id):
     #placeholder
-    return redirect('studentHomePage')
+    return render(request,"mainApp/studentTeamRatings.html")
 
 def createGroupPage(request):
     if request.method == 'POST':
