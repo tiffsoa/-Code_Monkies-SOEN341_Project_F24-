@@ -146,6 +146,25 @@ def viewTeam(request, team_id):
     #i.e. context looks something like {'students':["name1":id1,"name2":id2,"name3",id3]}
     return render(request, 'mainApp/students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
 
+def instructorViewTeam(request, team_id):
+    user_id = request.session.get('user_id')  # get logged-in user's ID from session
+
+    teamName = Projects.objects.get(id = team_id).project_name # get team name
+
+    # Find all students un the team (project) with the given team number
+    team_memberships = Projects_to_Student_Relationships.objects.filter(project_id=team_id)
+
+    # Extract the student details for each membership
+    student_list = []
+    for membership in team_memberships:
+        student = MyUser.objects.get(id=membership.student_id)
+        student_list.append({student.name: student.id})
+
+    # Pass the student list to the front-end (in a list of maps)
+    context = {'students': student_list, 'teamName': teamName, 'teamID': team_id}
+    #i.e. context looks something like {'students':["name1":id1,"name2":id2,"name3",id3]}
+    return render(request, 'mainApp/instructors_students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
+
 def studentTeamRatings(request, team_id):
     return render(request, 'mainApp/studentTeamRatings.html')
 
