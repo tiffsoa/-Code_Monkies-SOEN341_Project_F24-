@@ -63,7 +63,6 @@ def instructor_home_view(request):
         project_data = {
             'project_id': projectID,
             'project_name': instructor_project.project_name,
-            'is_open': instructor_project.open, 
         }
         projects_info.append(project_data)
     
@@ -113,7 +112,6 @@ def student_home_view(request):
         project_data = {
             'project_id': projectID,
             'project_name': Projects.objects.get(id=projectID).project_name,
-            'is_open': Projects.objects.get(id=projectID).open, 
             'instructor_name': MyUser.objects.get(id=instructorID).name
         }
         projects_info.append(project_data)
@@ -184,7 +182,7 @@ def createGroupPage(request):
                         idList.append(id)
                     else:
                         return render(request, 'mainApp/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
-                newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
+                newProject = Projects(project_name = groupName, instructor_id  = request.session.get('user_id'))
                 newProject.save() #Saving project to database
 
                 projectID = newProject.id #Retrieve new project id
@@ -208,7 +206,7 @@ def createGroupPage(request):
                     return render(request, 'mainApp/createGroup.html', {'error': user + ' is an instructor.'}) #Error message if user is an instructor
                 else:
                     return render(request, 'mainApp/createGroup.html', {'error': user + ' does not exist.'}) #Error message if user doesn't exist
-            newProject = Projects(project_name = projectName, open = True, instructor_id  = request.session.get('user_id'))
+            newProject = Projects(project_name = projectName, instructor_id  = request.session.get('user_id'))
             newProject.save() #Saving project to database
 
             projectID = newProject.id #Retrieve new project id
@@ -250,7 +248,7 @@ def createGroupCSV(request): # IGNORE THIS FOR NOW
                     idList.append(id)
                 else:
                     return render(request, 'mainApp/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
-            newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
+            newProject = Projects(project_name = groupName, instructor_id  = request.session.get('user_id'))
             newProject.save() #Saving project to database
 
             projectID = newProject.id #Retrieve new project id

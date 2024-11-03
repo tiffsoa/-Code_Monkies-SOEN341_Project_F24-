@@ -34,7 +34,6 @@
                 <a>    
                 <h3>{{ project.project_name }}</h3>
                 <h3> Instructor: {{ project.instructor_name }}</h3>
-                <h3>{{ project.is_open|yesno:"Open,Closed" }}</h3>
                 <button type=“button” onclick="location.href='{% url 'viewTeam' project.project_id %}';"> View/Rate Teammates </button>
                 <button type=“button” onclick="location.href='{% url 'studentTeamRatings' project.project_id %}';"> See ratings </button>
             </a>                       
