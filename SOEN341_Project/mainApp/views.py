@@ -379,6 +379,12 @@ def RemoveStudent(request,team_id,teammate_id):
     TeamRatings.objects.filter(team_id=team_id).filter(rater_id=teammate_id).delete()
     TeamRatings.objects.filter(team_id=team_id).filter(rated_id=teammate_id).delete()
 
+    #if no more students, delete group
+    if not Projects_to_Student_Relationships.objects.filter(project_id=team_id).exists():
+        Projects.objects.filter(id=team_id).delete()
+        return redirect("instructorHomePage")
+
+
     return redirect("instructorViewTeam", team_id=team_id)
 
 
