@@ -15,7 +15,6 @@ class MyUser(models.Model):
 class Projects(models.Model):
     id = models.AutoField(primary_key=True) #each project should have a unique id in the database
     project_name = models.CharField(max_length = 255, unique=True)
-    open = models.BooleanField(default=False)
     instructor_id = models.IntegerField()
 
 class Projects_to_Student_Relationships(models.Model):
