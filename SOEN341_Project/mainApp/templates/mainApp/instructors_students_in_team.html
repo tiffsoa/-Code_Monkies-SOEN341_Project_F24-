@@ -28,6 +28,7 @@
             {% for name, id in student.items %}
             <div>
                 <p>Name: {{ name }}, ID: {{ id }}</p>
+                <button type=“button” onclick="location.href='{% url 'RemoveStudent' teamID id %}';">Remove Student</button>
             </div>
             {% endfor %}
         {% endfor %}

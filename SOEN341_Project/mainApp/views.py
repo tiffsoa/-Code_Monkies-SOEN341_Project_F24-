@@ -368,5 +368,17 @@ def RateTeammate(request, team_id, teammate_id): #Mohammed part
     return render(request, 'mainApp/assess.html', {'teammate_name': teammate_name, 'session': request.session})
 
 
-     
+def RemoveStudent(request,team_id,teammate_id):
+    #delete student from team
+    Projects_to_Student_Relationships.objects.filter(
+        student_id=teammate_id, 
+        project_id=team_id
+    ).delete()
+
+    #delete students ratings
+    TeamRatings.objects.filter(team_id=team_id).filter(rater_id=teammate_id).delete()
+    TeamRatings.objects.filter(team_id=team_id).filter(rated_id=teammate_id).delete()
+
+    return redirect("instructorViewTeam", team_id=team_id)
+
 

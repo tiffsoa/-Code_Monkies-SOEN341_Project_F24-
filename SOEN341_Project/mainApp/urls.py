@@ -22,4 +22,5 @@ urlpatterns = [
     path('student/teamRatingsDownload/<int:team_id>', studentTeamRatingsDownload, name='studentTeamRatingsDownload'),
     path('instructor/createGroup/', createGroupPage, name='createGroup'),
     path('student/rateMember/<int:team_id>/<int:teammate_id>', RateTeammate, name='RateTeammate'),
+    path('instructor/viewTeam/<int:team_id>/<int:teammate_id>',RemoveStudent, name="RemoveStudent")
 ]
