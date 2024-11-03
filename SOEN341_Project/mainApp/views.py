@@ -84,11 +84,11 @@ def instructorTeamRatingsDownload(request, team_id):
     #placeholder
     return render(request, 'mainApp/instructorTeamRatings.html')
 
-def instructorOverallRatings(request, team_id):
+def instructorOverallRatings(request):
     #placeholder
     return render(request, 'mainApp/instructorOverallRatings.html')
 
-def instructorOverallRatingsDownload(request, team_id):
+def instructorOverallRatingsDownload(request):
     #placeholder
     return render(request, 'mainApp/instructorOverallRatings.html')
 
