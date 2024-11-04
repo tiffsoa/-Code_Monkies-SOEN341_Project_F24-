@@ -17,8 +17,10 @@ urlpatterns = [
     path('instructor/overallRatings', instructorOverallRatings, name='instructorOverallRatings'),
     path('instructor/overallRatingsDownload', instructorOverallRatingsDownload, name='instructorOverallRatingsDownload'),
     path('student/viewTeam/<int:team_id>', viewTeam, name='viewTeam'),
+    path('instructor/viewTeam/<int:team_id>', instructorViewTeam, name='instructorViewTeam'),
     path('student/teamRatings/<int:team_id>', studentTeamRatings, name='studentTeamRatings'),
     path('student/teamRatingsDownload/<int:team_id>', studentTeamRatingsDownload, name='studentTeamRatingsDownload'),
     path('instructor/createGroup/', createGroupPage, name='createGroup'),
     path('student/rateMember/<int:team_id>/<int:teammate_id>', RateTeammate, name='RateTeammate'),
+    path('instructor/viewTeam/<int:team_id>/<int:teammate_id>',RemoveStudent, name="RemoveStudent")
 ]
