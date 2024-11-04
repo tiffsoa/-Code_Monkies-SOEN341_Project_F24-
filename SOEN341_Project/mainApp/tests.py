@@ -156,7 +156,7 @@ class submitRatingTest(TestCase):
         session.save()
 
     def test_submit_rating_successful(self):
-        response=self.client.post(reverse('createGroup',args=[self.group.id,self.group.id]),{
+        response=self.client.post(reverse('RateTeammate',args=[self.group.id,self.group.id]),{
             "Cooperation":"5",
             "ConceptualContribution":"3",
             "PracticalContribution":"2",
