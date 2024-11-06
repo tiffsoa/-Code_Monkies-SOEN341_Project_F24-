@@ -63,7 +63,6 @@ def instructor_home_view(request):
         project_data = {
             'project_id': projectID,
             'project_name': instructor_project.project_name,
-            'is_open': instructor_project.open, 
         }
         projects_info.append(project_data)
     
@@ -76,11 +75,21 @@ def CloseOpenTeam(request, team_id):
     #placeholder
     return redirect('instructorHomePage')
 
-def teamRatingsInstructor(request, team_id):
+def instructorTeamRatings(request, team_id):
     #placeholder
-    return redirect('instructorHomePage')
+    return render(request, 'mainApp/instructorTeamRatings.html')
 
+def instructorTeamRatingsDownload(request, team_id):
+    #placeholder
+    return render(request, 'mainApp/instructorTeamRatings.html')
 
+def instructorOverallRatings(request):
+    #placeholder
+    return render(request, 'mainApp/instructorOverallRatings.html')
+
+def instructorOverallRatingsDownload(request):
+    #placeholder
+    return render(request, 'mainApp/instructorOverallRatings.html')
 
 def student_home_view(request):
     # Step 1: Retrieve the user ID from session
@@ -103,7 +112,6 @@ def student_home_view(request):
         project_data = {
             'project_id': projectID,
             'project_name': Projects.objects.get(id=projectID).project_name,
-            'is_open': Projects.objects.get(id=projectID).open, 
             'instructor_name': MyUser.objects.get(id=instructorID).name
         }
         projects_info.append(project_data)
@@ -138,9 +146,31 @@ def viewTeam(request, team_id):
     #i.e. context looks something like {'students':["name1":id1,"name2":id2,"name3",id3]}
     return render(request, 'mainApp/students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
 
-def teamRatingsStudent(request, team_id):
+def instructorViewTeam(request, team_id):
+    user_id = request.session.get('user_id')  # get logged-in user's ID from session
+
+    teamName = Projects.objects.get(id = team_id).project_name # get team name
+
+    # Find all students un the team (project) with the given team number
+    team_memberships = Projects_to_Student_Relationships.objects.filter(project_id=team_id)
+
+    # Extract the student details for each membership
+    student_list = []
+    for membership in team_memberships:
+        student = MyUser.objects.get(id=membership.student_id)
+        student_list.append({student.name: student.id})
+
+    # Pass the student list to the front-end (in a list of maps)
+    context = {'students': student_list, 'teamName': teamName, 'teamID': team_id}
+    #i.e. context looks something like {'students':["name1":id1,"name2":id2,"name3",id3]}
+    return render(request, 'mainApp/instructors_students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
+
+def studentTeamRatings(request, team_id):
+    return render(request, 'mainApp/studentTeamRatings.html')
+
+def studentTeamRatingsDownload(request, team_id):
     #placeholder
-    return redirect('studentHomePage')
+    return render(request,"mainApp/studentTeamRatings.html")
 
 def createGroupPage(request):
     if request.method == 'POST':
@@ -171,7 +201,7 @@ def createGroupPage(request):
                         idList.append(id)
                     else:
                         return render(request, 'mainApp/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
-                newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
+                newProject = Projects(project_name = groupName, instructor_id  = request.session.get('user_id'))
                 newProject.save() #Saving project to database
 
                 projectID = newProject.id #Retrieve new project id
@@ -195,7 +225,7 @@ def createGroupPage(request):
                     return render(request, 'mainApp/createGroup.html', {'error': user + ' is an instructor.'}) #Error message if user is an instructor
                 else:
                     return render(request, 'mainApp/createGroup.html', {'error': user + ' does not exist.'}) #Error message if user doesn't exist
-            newProject = Projects(project_name = projectName, open = True, instructor_id  = request.session.get('user_id'))
+            newProject = Projects(project_name = projectName, instructor_id  = request.session.get('user_id'))
             newProject.save() #Saving project to database
 
             projectID = newProject.id #Retrieve new project id
@@ -237,7 +267,7 @@ def createGroupCSV(request): # IGNORE THIS FOR NOW
                     idList.append(id)
                 else:
                     return render(request, 'mainApp/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
-            newProject = Projects(project_name = groupName, open = True, instructor_id  = request.session.get('user_id'))
+            newProject = Projects(project_name = groupName, instructor_id  = request.session.get('user_id'))
             newProject.save() #Saving project to database
 
             projectID = newProject.id #Retrieve new project id
@@ -299,16 +329,16 @@ def RateTeammate(request, team_id, teammate_id): #Mohammed part
     
     # Step 2: Check if the student has already rated the teammate for the specified team
     if TeamRatings.objects.filter(rater_id=user_id, team_id=team_id, rated_id=teammate_id).exists():
-        return redirect('viewTeam', team_id=team_id)
+        return redirect('viewTeam', team_id=team_id,)
     
     # Step 3: Handle GET and POST requests for the rating page
     if request.method == 'POST':
         # Extract multiple ratings from the form submission
-        score_cooperation = request.POST.get('score_cooperation')
-        score_conceptual = request.POST.get('score_conceptual')
-        score_practical = request.POST.get('score_practical')
-        score_workethic = request.POST.get('score_workethic')
-        comment = request.POST.get('comment', '')
+        score_cooperation = request.POST.get('Cooperation')
+        score_conceptual = request.POST.get('ConceptualContribution')
+        score_practical = request.POST.get('PracticalContribution')
+        score_workethic = request.POST.get('WorkEthic')
+        comment = request.POST.get('message', '')
 
         # Validate each rating
         ratings = [score_cooperation, score_conceptual, score_practical, score_workethic]
@@ -338,5 +368,23 @@ def RateTeammate(request, team_id, teammate_id): #Mohammed part
     return render(request, 'mainApp/assess.html', {'teammate_name': teammate_name, 'session': request.session})
 
 
-     
+def RemoveStudent(request,team_id,teammate_id):
+    #delete student from team
+    Projects_to_Student_Relationships.objects.filter(
+        student_id=teammate_id, 
+        project_id=team_id
+    ).delete()
+
+    #delete students ratings
+    TeamRatings.objects.filter(team_id=team_id).filter(rater_id=teammate_id).delete()
+    TeamRatings.objects.filter(team_id=team_id).filter(rated_id=teammate_id).delete()
+
+    #if no more students, delete group
+    if not Projects_to_Student_Relationships.objects.filter(project_id=team_id).exists():
+        Projects.objects.filter(id=team_id).delete()
+        return redirect("instructorHomePage")
+
+
+    return redirect("instructorViewTeam", team_id=team_id)
+
 

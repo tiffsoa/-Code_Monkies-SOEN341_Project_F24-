@@ -29,14 +29,17 @@
                     <a>
                         <h3>{{ project.project_name }}</h3>
                         <h3>{{ project.is_open|yesno:"Open,Closed" }}</h3>
-                        <button type="button" onclick="location.href='{% url 'CloseOpenTeam' project.project_id %}';"> Close/Open Team </button>
-                        <button type="button" onclick="location.href='{% url 'teamRatingsInstructor' project.project_id %}';"> See ratings </button>
+                        <button type="button" onclick="location.href='{% url 'instructorViewTeam' project.project_id %}';"> View Team members </button>
+                        <button type="button" onclick="location.href='{% url 'instructorTeamRatings' project.project_id %}';"> See ratings </button>
                     </a>                       
                 </div>
             {% endfor %}
         </div>
         <div class="create-group">
             <button type="button" onclick="location.href='{% url 'createGroup' %}';" class="create-group-btn">Create Group</button>
+        </div>
+        <div class="create-group">
+            <button type="button" onclick="location.href='{% url 'instructorOverallRatings' %}';" class="create-group-btn">Overall Team Ratings</button>
         </div>
     </main>
 
