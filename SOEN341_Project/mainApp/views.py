@@ -166,6 +166,53 @@ def instructorViewTeam(request, team_id):
     return render(request, 'mainApp/instructors_students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
 
 def studentTeamRatings(request, team_id):
+    #given a student on this page, compile all results for student n from all the members in their team. If a teammate hasn't 
+    #rated them yet, include them in list anyway but leave key blank for each value
+    
+    user_id = request.session.get('user_id')
+    student = MyUser.objects.get(id=user_id)
+    
+    #get teammates'ratings for the student for this team
+    ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=student.id)
+    
+    #get all teammates in team
+    #teammate_ids = TeamRatings.objects.filter(team_id=team_id).values_list('rater_id', flat=True).distinct()
+    teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=team_id).values_list('student_id', flat=True).distinct()
+    
+    #list of results
+    ratings_list = []
+    
+    for teammate_id in teammate_ids:
+        teammate = MyUser.objects.get(id=teammate_id)
+        
+        rating = ratings.filter(rater_id=teammate_id).first()
+        
+        #data for each teammate
+        rating_data = {
+            "Name": teammate.username,
+            "Cooperation": rating.score_cooperation if rating else None,
+            "Practical": rating.score_practical if rating else None,
+            "Work Ethic": rating.score_workethic if rating else None,
+            "Comments": rating.comment if rating else "",
+        }
+        
+        #calculate average score
+        if rating:
+            rating_values = [
+                rating.score_cooperation,
+                rating.score_conceptual,
+                rating.score_practical,
+                rating.score_workethic
+            ]
+            
+            rating_data["Average Accross All"] = sum(rating_values) / len(rating_values)
+            
+        else:
+            rating_data["Average Accross All"] = None
+            
+        #add to the main list
+        ratings_list.append(rating_data)
+    
     return render(request, 'mainApp/studentTeamRatings.html')
 
 def studentTeamRatingsDownload(request, team_id):
