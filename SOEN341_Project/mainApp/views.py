@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib import messages
+import csv
 
 #this is the main file we will work on
 #here, we will create different views or routes that we can access on our website
@@ -176,7 +177,6 @@ def studentTeamRatings(request, team_id):
     ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=student.id)
     
     #get all teammates in team
-    #teammate_ids = TeamRatings.objects.filter(team_id=team_id).values_list('rater_id', flat=True).distinct()
     teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=team_id).values_list('student_id', flat=True).distinct()
     
     #list of results
@@ -216,8 +216,61 @@ def studentTeamRatings(request, team_id):
     return render(request, 'mainApp/studentTeamRatings.html')
 
 def studentTeamRatingsDownload(request, team_id):
-    #placeholder
-    return render(request,"mainApp/studentTeamRatings.html")
+    
+    #get all teammates
+    teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=team_id).values_list('student_id', flat=True).distinct()
+
+    # CSV response
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="team_{team_id}_ratings.csv"'
+
+    # CSV writer
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Cooperation', 'Conceptual', 'Practical', 'Work Ethic', 'Comments', 'Average Score'])
+
+    # compile each teammate's rating
+    for student_id in teammate_ids:
+        student = MyUser.objects.get(id=student_id)
+        
+        # ratings for the student
+        ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=student_id)
+        
+        # rating details
+        cooperation, conceptual, practical, work_ethic = [], [], [], []
+        comments = []
+        
+        for rating in ratings:
+            # add score to list
+            cooperation.append(rating.score_cooperation)
+            conceptual.append(rating.score_conceptual)
+            practical.append(rating.score_practical)
+            work_ethic.append(rating.score_workethic)
+            if rating.comment:
+                comments.append(rating.comment)
+        
+        # compute avrage accross all
+        avg_cooperation = sum(cooperation) / len(cooperation) if cooperation else 0
+        avg_conceptual = sum(conceptual) / len(conceptual) if conceptual else 0
+        avg_practical = sum(practical) / len(practical) if practical else 0
+        avg_work_ethic = sum(work_ethic) / len(work_ethic) if work_ethic else 0
+        overall_avg = (avg_cooperation + avg_conceptual + avg_practical + avg_work_ethic) / 4
+
+        # for readability 
+        all_comments = " | ".join(comments) if comments else ""
+
+        # Write the row for this student
+        writer.writerow([
+            student.name,
+            avg_cooperation,
+            avg_conceptual,
+            avg_practical,
+            avg_work_ethic,
+            all_comments,
+            overall_avg
+        ])
+    
+    #return csv response since it's a file download (?)
+    return csv.response
 
 def createGroupPage(request):
     if request.method == 'POST':
