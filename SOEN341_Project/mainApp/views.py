@@ -176,7 +176,8 @@ def studentTeamRatings(request, team_id):
     ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=student.id)
     
     #get all teammates in team
-    teammate_ids = TeamRatings.objects.filter(team_id=team_id).values_list('rater_id', flat=True).distinct()
+    #teammate_ids = TeamRatings.objects.filter(team_id=team_id).values_list('rater_id', flat=True).distinct()
+    teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=team_id).values_list('student_id', flat=True).distinct()
     
     #list of results
     ratings_list = []
@@ -210,7 +211,7 @@ def studentTeamRatings(request, team_id):
             rating_data["Average Accross All"] = None
             
         #add to the main list
-        ratings_list.append(rating data)
+        ratings_list.append(rating_data)
     
     return render(request, 'mainApp/studentTeamRatings.html')
 
