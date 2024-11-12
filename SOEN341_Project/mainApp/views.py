@@ -183,6 +183,9 @@ def studentTeamRatings(request, team_id):
     ratings_list = []
     
     for teammate_id in teammate_ids:
+        if teammate_id==request.session.get('user_id'):
+            continue
+        
         teammate = MyUser.objects.get(id=teammate_id)
         
         rating = ratings.filter(rater_id=teammate_id).first()
@@ -222,7 +225,7 @@ def studentTeamRatingsDownload(request, team_id):
 
     # CSV response
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename="team_{team_id}_ratings.csv"'
+    response['Content-Disposition'] = f'attachment; filename="team_{Projects.objects.get(id=team_id).project_name}_ratings.csv"'
 
     # CSV writer
     writer = csv.writer(response)
@@ -230,6 +233,8 @@ def studentTeamRatingsDownload(request, team_id):
 
     # compile each teammate's rating
     for student_id in teammate_ids:
+        if student_id==request.session.get('user_id'):
+            continue
         student = MyUser.objects.get(id=student_id)
         
         # ratings for the student
@@ -269,8 +274,8 @@ def studentTeamRatingsDownload(request, team_id):
             overall_avg
         ])
     
-    #return csv response since it's a file download (?)
-    return csv.response
+    #return response since it's a file download (?)
+    return response
 
 def createGroupPage(request):
     if request.method == 'POST':
