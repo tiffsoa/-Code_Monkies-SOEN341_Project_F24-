@@ -85,8 +85,71 @@ def instructorTeamRatingsDownload(request, team_id):
     return render(request, 'mainApp/instructorTeamRatings.html')
 
 def instructorOverallRatings(request):
-    #placeholder
-    return render(request, 'mainApp/instructorOverallRatings.html')
+    #get all projects assigned to given instructor
+    user_id = request.session.get('user_id')
+    instructor_projects = Projects.objects.filter(instructor_id=user_id)
+
+    rating_info = [] #Create list of students' ratings
+    #iterate thru all project ids of given instructor
+    for project_id in instructor_projects:
+        currentID = project_id.id #Obtain current project id
+
+        #get all users of the current project
+        users = Projects_to_Student_Relationships.objects.filter(project_id = currentID)
+        #iterate thru all users of the current project
+        for user in users:
+            currentUserID = user.student_id #Obtain current user ID
+
+            ratings = TeamRatings.objects.filter(team_id=currentID, rated_id=currentUserID) #Obtain a list of all ratings of a given student
+
+            teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=currentID).values_list('student_id', flat=True).distinct() #Obtain a list of all teammates of a given student
+
+            userCounter = 0 #Number of users who rated a given student
+
+            cooperation = 0 #Cooperation score
+            conceptual = 0 #Conception score
+            practical = 0 #Practical score
+            workethic = 0 #Work ethic score
+
+            for teammate_id in teammate_ids: 
+                if teammate_id==currentUserID: #continue looping thru all teammates if it's the current student
+                    continue
+
+                rating = ratings.filter(rater_id = teammate_id).first() #Obtain the rating of current teammate
+
+                cooperation += rating.score_cooperation if rating else None #add all ratings together
+                conceptual += rating.score_conceptual if rating else None
+                practical += rating.score_practical if rating else None
+                workethic += rating.score_workethic if rating else None
+
+                if rating: #increment a user that rated by 1 if they have made a rating
+                    userCounter += 1
+
+            if userCounter != 0: #If current student has been rated, make an average of all individual scores
+                cooperation /= userCounter
+                conceptual /= userCounter
+                practical /= userCounter
+                workethic /= userCounter
+
+            average = (cooperation + conceptual + practical + workethic)/4 #Calculate overall average
+
+
+            rating_data = { #Create rating data structure
+                'id': currentUserID,
+                'username': MyUser.objects.get(id = currentUserID).username,
+                'name': MyUser.objects.get(id = currentUserID).name,
+                'team': Projects.objects.get(id = currentID).project_name,
+                'cooperation': cooperation,
+                'conceptual': conceptual,
+                'practical': practical,
+                'work_ethic': workethic,
+                'average': average,
+                'numOfRespondents': userCounter
+            }
+
+            rating_info.append(rating_data) #add rating of student to list
+
+    return render(request, 'mainApp/instructorOverallRatings.html', rating_info)
 
 def instructorOverallRatingsDownload(request):
     #placeholder
