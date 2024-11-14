@@ -76,14 +76,6 @@ def CloseOpenTeam(request, team_id):
     #placeholder
     return redirect('instructorHomePage')
 
-def instructorTeamRatings(request, team_id):
-    #placeholder
-    return render(request, 'mainApp/instructorTeamRatings.html', {'team_id': team_id})
-
-def instructorTeamRatingsDownload(request, team_id):
-    #placeholder
-    return render(request, 'mainApp/instructorTeamRatings.html')
-
 def ratingLogicOverall(request):
     #get all projects assigned to given instructor
     user_id = request.session.get('user_id')
@@ -613,7 +605,7 @@ def instructorTeamRatings(request, team_id):
         ratings_list.append(rating_data)
 
     # Pass the data to the template
-    return render(request, 'mainApp/instructorTeamRatings.html', {'ratings': ratings_list})
+    return render(request, 'mainApp/instructorTeamRatings.html', {'ratings': ratings_list,"team_id":team_id})
 
 def instructorTeamRatingsDownload(request, team_id):
     # Prepare the HTTP response with CSV content
