@@ -149,7 +149,7 @@ def instructorOverallRatings(request):
 
             rating_info.append(rating_data) #add rating of student to list
 
-    return render(request, 'mainApp/instructorOverallRatings.html', rating_info)
+    return render(request, 'mainApp/instructorOverallRatings.html', {'ratings': rating_info})
 
 def instructorOverallRatingsDownload(request):
     #placeholder

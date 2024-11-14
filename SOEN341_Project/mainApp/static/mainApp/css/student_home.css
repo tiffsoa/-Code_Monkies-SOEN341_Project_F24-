@@ -11,6 +11,7 @@ header {
     align-items: center; 
     text-align: center;
     background-color: #82acff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     color: white;
     padding: 10px;
 }
@@ -91,8 +92,10 @@ footer {
     background-color: #82acff;
     color: white;
     text-align: center;
-    padding: 10px 0;
+    padding: 15px 0;
     position: fixed;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     bottom: 0;
+    font-size: 18px; 
     width: 100%;
 }
