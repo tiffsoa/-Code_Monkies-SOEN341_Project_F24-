@@ -568,3 +568,85 @@ def RemoveStudent(request,team_id,teammate_id):
     return redirect("instructorViewTeam", team_id=team_id)
 
 
+#Mohammed Part for csv 
+
+
+
+
+def instructorTeamRatings(request, team_id):
+    # Retrieve ratings for each member of the team
+    teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=team_id).values_list('student_id', flat=True).distinct()
+    ratings_list = []
+
+    for teammate_id in teammate_ids:
+        teammate = MyUser.objects.get(id=teammate_id)
+        
+        # Get the ratings given by others for the current teammate in the team
+        ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=teammate_id)
+
+        # Initialize rating data
+        rating_data = {
+            "name": teammate.name,
+            "cooperation": None,
+            "conceptual": None,
+            "practical": None,
+            "work_ethic": None,
+            "average_across_all": None
+        }
+
+        # If the teammate has ratings, calculate averages
+        if ratings:
+            score_cooperation = sum([rating.score_cooperation for rating in ratings]) / len(ratings)
+            score_conceptual = sum([rating.score_conceptual for rating in ratings]) / len(ratings)
+            score_practical = sum([rating.score_practical for rating in ratings]) / len(ratings)
+            score_workethic = sum([rating.score_workethic for rating in ratings]) / len(ratings)
+            average_across_all = (score_cooperation + score_conceptual + score_practical + score_workethic) / 4
+
+            rating_data.update({
+                "cooperation": round(score_cooperation, 2),
+                "conceptual": round(score_conceptual, 2),
+                "practical": round(score_practical, 2),
+                "work_ethic": round(score_workethic, 2),
+                "average_across_all": round(average_across_all, 2)
+            })
+        
+        ratings_list.append(rating_data)
+
+    # Pass the data to the template
+    return render(request, 'mainApp/instructorTeamRatings.html', {'ratings': ratings_list})
+
+def instructorTeamRatingsDownload(request, team_id):
+    # Prepare the HTTP response with CSV content
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="team_{team_id}_ratings.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Cooperation', 'Conceptual', 'Practical', 'Work Ethic', 'Average Across All'])
+
+    # Retrieve and write ratings data for each teammate
+    teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=team_id).values_list('student_id', flat=True).distinct()
+
+    for teammate_id in teammate_ids:
+        teammate = MyUser.objects.get(id=teammate_id)
+        ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=teammate_id)
+
+        if ratings:
+            score_cooperation = sum([rating.score_cooperation for rating in ratings]) / len(ratings)
+            score_conceptual = sum([rating.score_conceptual for rating in ratings]) / len(ratings)
+            score_practical = sum([rating.score_practical for rating in ratings]) / len(ratings)
+            score_workethic = sum([rating.score_workethic for rating in ratings]) / len(ratings)
+            average_across_all = (score_cooperation + score_conceptual + score_practical + score_workethic) / 4
+
+            writer.writerow([
+                teammate.name,
+                round(score_cooperation, 2),
+                round(score_conceptual, 2),
+                round(score_practical, 2),
+                round(score_workethic, 2),
+                round(average_across_all, 2)
+            ])
+        else:
+            writer.writerow([teammate.name, "", "", "", "", ""])
+
+    return response
+
