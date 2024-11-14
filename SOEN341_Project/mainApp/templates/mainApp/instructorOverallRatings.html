@@ -32,8 +32,8 @@
                 <thead>
                     <tr>
                         <th>Student ID</th>
-                        <th>Last Name</th>
-                        <th>First Name</th>
+                        <th>Username</th>
+                        <th>Name</th>
                         <th>Team</th>
                         <th>Cooperation</th>
                         <th>Conceptual Contribution</th>
@@ -43,10 +43,20 @@
                         <th>Peers who Responded</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <td>hello</td>
-                    <td>hello</td>
-                </tbody>
+                {% for student in ratings %}
+                    <tbody>
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.username }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.team }}</td>
+                        <td>{{ student.cooperation }}</td>
+                        <td>{{ student.conceptual }}</td>
+                        <td>{{ student.practical }}</td>
+                        <td>{{ student.work_ethic }}</td>
+                        <td>{{ student.average }}</td>
+                        <td>{{ student.numOfRespondents }}</td>
+                    </tbody>
+                {% endfor %}
             </table>
             <p><p>
             <form action="form" method="get"> 
