@@ -117,21 +117,30 @@ def instructorOverallRatings(request):
 
                 rating = ratings.filter(rater_id = teammate_id).first() #Obtain the rating of current teammate
 
-                cooperation += rating.score_cooperation if rating else None #add all ratings together
-                conceptual += rating.score_conceptual if rating else None
-                practical += rating.score_practical if rating else None
-                workethic += rating.score_workethic if rating else None
+                cooperation += rating.score_cooperation if rating else 0 #add all ratings together
+                conceptual += rating.score_conceptual if rating else 0
+                practical += rating.score_practical if rating else 0
+                workethic += rating.score_workethic if rating else 0
 
                 if rating: #increment a user that rated by 1 if they have made a rating
                     userCounter += 1
 
             if userCounter != 0: #If current student has been rated, make an average of all individual scores
-                cooperation /= userCounter
-                conceptual /= userCounter
-                practical /= userCounter
-                workethic /= userCounter
+                cooperation = round(cooperation/userCounter, 2)
+                conceptual = round(conceptual/userCounter, 2)
+                practical = round(practical/userCounter, 2)
+                workethic = round(workethic/userCounter, 2)
+            
 
-            average = (cooperation + conceptual + practical + workethic)/4 #Calculate overall average
+            average = round((cooperation + conceptual + practical + workethic)/4, 2) #Calculate overall average
+
+            if (conceptual or cooperation or practical or workethic) == 0:
+                conceptual = "-"
+                cooperation = "-"
+                practical = "-"
+                workethic = "-"
+                average = "-"
+            
 
 
             rating_data = { #Create rating data structure
