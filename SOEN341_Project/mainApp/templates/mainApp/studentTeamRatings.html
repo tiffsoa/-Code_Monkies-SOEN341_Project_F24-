@@ -1,13 +1,65 @@
-{% load static %}
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Student Team Ratings</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'mainApp/css/studentTeamRatings.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
+    <!-- Header Section -->
     <header>
+        <div class="logo-container">
+            <img src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        </div>
+        <div class="header-content">
+            <h1>Peer Assessment - Team Ratings</h1>
+            <p>Anonymous Ratings and Feedback from Your Team Members</p>
+        </div>
+        <div class="settings">
+            <button type="button" onclick="location.href='{% url 'logout' %}';" class="logout-btn">Logout</button>
+        </div>
     </header>
 
+    <!-- Main Content -->
+    <div id="students">
+        <h2>Your Team Ratings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Cooperation</th>
+                    <th>Conceptual</th>
+                    <th>Practical</th>
+                    <th>Work Ethic</th>
+                    <th>Average</th>
+                    <th>Comments</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for rating in ratings %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ rating.cooperation }}</td>
+                    <td>{{ rating.conceptual }}</td>
+                    <td>{{ rating.practical }}</td>
+                    <td>{{ rating.work_ethic }}</td>
+                    <td>{{ rating.average_across_all }}</td>
+                    <td>{{ rating.comments }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Button to download the ratings as a CSV file -->
+        <form action="{% url 'studentTeamRatingsDownload' team_id %}" method="get">
+            <button type="submit" class="download">Download to CSV</button>
+        </form>
+    </div>
+
+    <!-- Footer Section -->
     <footer>
         <p>© 2024 Peer Assessment Platform. All rights reserved.</p>
     </footer>

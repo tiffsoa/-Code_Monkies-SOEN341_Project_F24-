@@ -3,11 +3,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <title>Peer Assessment - Instructor Overall Ratings</title>
+    <link rel="stylesheet" href="{% static 'mainApp/css/instructorRatings.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <!-- Header Section -->
     <header>
+        <div class="logo-container">
+            <img src="{% static 'mainApp/images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        </div>
+        <div class="header-content">
+            <h1>Peer Assessment</h1>
+            <p>Here are the Overall Ratings for all students! You can export the data as a CSV file.</p>
+        </div>
+        <div class="settings">
+            <button style="font-size:20px"><i class="fa fa-gear"></i></button>
+            <button type="button" onclick="location.href='{% url 'logout' %}';" class="logout-btn">Logout</button>
+        </div>
     </header>
 
+    <!-- Content Section -->
+    <div id="students">
+        <h2>Instructor Overall Ratings</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Member</th>
+                    <th>Cooperation</th>
+                    <th>Conceptual</th>
+                    <th>Practical</th>
+                    <th>Work Ethic</th>
+                    <th>Average Across All</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in ratings %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.cooperation }}</td>
+                    <td>{{ student.conceptual }}</td>
+                    <td>{{ student.practical }}</td>
+                    <td>{{ student.work_ethic }}</td>
+                    <td>{{ student.average }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+            <button type="button" onclick="location.href='{% url 'instructorTeamRatingsDownload' team_id %}';" class="logout-btn">Download to CSV</button>
+    </div>
+
+    <!-- Footer Section -->
     <footer>
         <p>© 2024 Peer Assessment Platform. All rights reserved.</p>
     </footer>
