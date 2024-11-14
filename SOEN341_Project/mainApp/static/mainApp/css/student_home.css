@@ -37,6 +37,35 @@ img {
     margin-left: auto;
 }
 
+.settings button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.back-btn,
+.logout-btn {
+    padding: 12px;
+    font-size: 16px;
+    
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Optima', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn:hover,
+.logout-btn:hover {
+    background-color: #5b91fd;
+    transform: translateY(-2px);
+}
+
 h1 {
     margin: 0; 
     text-align: center; 
@@ -86,6 +115,11 @@ main {
     color: black;
     background-color: #82acfe;
     border-color: #82acfe;
+}
+
+.team-block button:hover{
+    cursor: pointer;
+    color: white;
 }
 
 footer {
