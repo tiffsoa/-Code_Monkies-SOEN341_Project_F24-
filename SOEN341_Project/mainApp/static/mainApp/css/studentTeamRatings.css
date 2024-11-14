@@ -1,0 +1,131 @@
+/* Global Styles */
+body {
+    font-family: 'New Century Schoolbook', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e4f1fe; /* Light blue background */
+    color: #333;
+}
+
+/* Header Styling */
+header {
+    display: flex; 
+    align-items: center; 
+    text-align: center;
+    background-color: #82acff; /* Blue header background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+    padding: 10px;
+}
+
+.logo-container {
+    flex-shrink: 0;
+}
+
+.logo {
+    width: 40vw;
+    height: auto;
+}
+
+.header-content {
+    flex-grow: 0.5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.settings {
+    margin-left: auto;
+}
+
+.settings button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.logout-btn {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #5b91fd; /* Button blue color */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn:hover {
+    background-color: #3c78d8; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+/* Content Section */
+#students {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    margin: 40px auto; 
+    text-align: center; 
+    max-width: 600px; 
+    width: 90%; 
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #f7fbff;
+}
+
+/* Table Styling */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    border: 1px solid #82acff;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #b3d1ff; /* Light blue for headers */
+    color: #333;
+}
+
+td {
+    background-color: #e4f1fe; /* Light blue background for cells */
+}
+
+/* Button Styling */
+.download {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #5b91fd; /* Button blue color */
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.download:hover {
+    background-color: #3c78d8; /* Darker blue on hover */
+}
+
+/* Footer Styling */
+footer {
+    background-color: #82acff; /* Blue footer background */
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+}
