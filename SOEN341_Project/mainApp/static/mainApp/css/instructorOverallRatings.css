@@ -10,6 +10,31 @@ body {
     color: #333;
 }
 
+.toCenter {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'New Century Schoolbook', serif;
+    background-color: #e9d4f9;
+    color: #333;
+}
+
+table {
+    width: 60%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #d5b5f7;
+}
+
 /* Header */
 header {
     display: flex;
@@ -64,73 +89,8 @@ header {
     cursor: pointer;
 }
 
-/* Team Blocks */
-.teams-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
-    justify-content: center;
-    margin-top: 50px;
-}
-
-.team-block {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    width: 300px;
-    text-align: center;
-}
-
-.team-block:hover {
-    transform: translateY(-10px);
-}
-
-.team-block a {
-    color: inherit;
-    text-decoration: none;
-    display: block;
-    padding: 20px;
-}
-
-.team-block h3 {
-    margin: 10px 0;
-    font-size: 1.5rem;
-}
-
-/* Form and Button Styles */
-.create-group-form, .center-box form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.create-group-form input[type="text"],
-.create-group-form input[type="file"] {
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #f8f8fc;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.create-group-form input[type="text"]:focus,
-.create-group-form input[type="file"]:focus {
-    border-color: #ca9af1;
-    box-shadow: 0 0 5px rgba(202, 154, 241, 0.5);
-    outline: none;
-}
-
-/* Primary Button Styles */
-.create-group-form button,
 .back-btn,
-.logout-btn,
-.add-btn {
+.logout-btn  {
     padding: 12px;
     font-size: 16px;
     background-color: #ac80f4;
@@ -144,34 +104,14 @@ header {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.create-group-form button:hover,
 .back-btn:hover,
 .logout-btn:hover,
-.add-btn:hover {
+.download:hover {
     background-color: #8b5fc6;
     transform: translateY(-2px);
 }
 
-/* Add User Button */
-.add-btn {
-    background-color: #28a745;
-    color: #fff;
-    margin-top: 10px;
-}
-
-.add-btn:hover {
-    background-color: #1e7a38;
-}
-
-/* Create Group Button Container */
-.create-group {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-/* Create Group Button Style */
-.create-group-btn {
+.download {
     padding: 18px 36px;
     font-size: 20px;
     background-color: #ac80f4;
@@ -183,11 +123,6 @@ header {
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.create-group-btn:hover {
-    background-color: #8b5fc6;
-    transform: translateY(-3px);
 }
 
 /* Footer */
