@@ -6,7 +6,7 @@
     <title>Peer Assessment - Student Homepage</title>
     {% load static %}
     <!-- for every html file, do not forget "{% load static %}" as our css and images are in the static folder-->
-    <link rel="stylesheet" href="{% static 'mainApp/css/viewTeam.css' %}"> 
+    <link rel="stylesheet" href="{% static 'mainApp/css/student.viewTeam.css' %}"> 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
         </div>
         <div class="settings">
             <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
-            <button type=“button” onclick="location.href='{% url 'logout' %}';"> Logout </button>
+            <button type=“button” onclick="location.href='{% url 'logout' %}';" class="logout-btn"> Logout </button>
         </div>
     </header>
     

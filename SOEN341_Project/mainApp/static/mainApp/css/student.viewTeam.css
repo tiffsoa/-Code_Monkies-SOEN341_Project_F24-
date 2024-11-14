@@ -2,7 +2,7 @@ body {
     font-family: New Century Schoolbook, serif;
     margin: 0;
     padding: 0;
-    background-color: #e9d4f9;
+    background-color: #e4f1fe;
     color: #333;
 }
 
@@ -10,7 +10,7 @@ header {
     display: flex; 
     align-items: center; 
     text-align: center;
-    background-color: #ca9af1;
+    background-color: #82acff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     color: white;
     padding: 10px;
@@ -63,7 +63,7 @@ img {
 
 .back-btn:hover,
 .logout-btn:hover {
-    background-color: #8b5fc6;
+    background-color: #5b91fd;
     transform: translateY(-2px);
 }
 
@@ -90,8 +90,8 @@ h1 {
 button {
     font-size: medium;
     padding: 6px;
-    background-color:#ca9af1;
-    border-color:#ca9af1;
+    background-color:#82acfe;
+    border-color:#82acfe;
 }
 
 button:hover{
@@ -100,7 +100,7 @@ button:hover{
 }
 
 footer {
-    background-color: #ca9af1;
+    background-color: #82acff;
     color: white;
     text-align: center;
     padding: 15px 0;
