@@ -149,7 +149,7 @@ def instructorOverallRatings(request):
 
             rating_info.append(rating_data) #add rating of student to list
 
-    return render(request, 'mainApp/instructorOverallRatings.html', rating_info)
+    return render(request, 'mainApp/instructorOverallRatings.html', {'ratings': rating_info})
 
 def instructorOverallRatingsDownload(request):
     #placeholder
@@ -282,62 +282,55 @@ def studentTeamRatings(request, team_id):
     return render(request, 'mainApp/studentTeamRatings.html')
 
 def studentTeamRatingsDownload(request, team_id):
+    #current user's id
+    current_user_id = request.session.get('user_id')
     
-    #get all teammates
-    teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=team_id).values_list('student_id', flat=True).distinct()
-
     # CSV response
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = f'attachment; filename="team_{Projects.objects.get(id=team_id).project_name}_ratings.csv"'
-
-    # CSV writer
-    writer = csv.writer(response)
-    writer.writerow(['Name', 'Cooperation', 'Conceptual', 'Practical', 'Work Ethic', 'Comments', 'Average Score'])
-
-    # compile each teammate's rating
-    for student_id in teammate_ids:
-        if student_id==request.session.get('user_id'):
-            continue
-        student = MyUser.objects.get(id=student_id)
-        
-        # ratings for the student
-        ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=student_id)
-        
-        # rating details
-        cooperation, conceptual, practical, work_ethic = [], [], [], []
-        comments = []
-        
-        for rating in ratings:
-            # add score to list
-            cooperation.append(rating.score_cooperation)
-            conceptual.append(rating.score_conceptual)
-            practical.append(rating.score_practical)
-            work_ethic.append(rating.score_workethic)
-            if rating.comment:
-                comments.append(rating.comment)
-        
-        # compute avrage accross all
-        avg_cooperation = sum(cooperation) / len(cooperation) if cooperation else 0
-        avg_conceptual = sum(conceptual) / len(conceptual) if conceptual else 0
-        avg_practical = sum(practical) / len(practical) if practical else 0
-        avg_work_ethic = sum(work_ethic) / len(work_ethic) if work_ethic else 0
-        overall_avg = (avg_cooperation + avg_conceptual + avg_practical + avg_work_ethic) / 4
-
-        # for readability 
-        all_comments = " | ".join(comments) if comments else ""
-
-        # Write the row for this student
-        writer.writerow([
-            student.name,
-            avg_cooperation,
-            avg_conceptual,
-            avg_practical,
-            avg_work_ethic,
-            all_comments,
-            overall_avg
-        ])
+    response['Content-Disposition'] = f'attachment; filename="ratings_for_{MyUser.objects.get(id=current_user_id).name}.csv"'
     
-    #return response since it's a file download (?)
+    # CSV writer + headers
+    writer = csv.writer(response)
+    writer.writerow(['Teammate Name', 'Cooperation', 'Conceptual', 'Practical', 'Work Ethic', 'Comments', 'Average Score'])
+
+    #fetching ratings that teammates gave to current user in this specific team
+    ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=current_user_id).exclude(rater_id=current_user_id)
+    
+    #lists to store scores + comments
+    cooperation, conceptual, practical, work_ethic, comments = [], [], [], [], []
+    
+    #process ratings
+    for rating in ratings:
+        #store scores and comments
+        cooperation.append(rating.score_cooperation)
+        conceptual.append(rating.score_conceptual)
+        practical.append(rating.score_practical)
+        work_ethic.append(rating.score_workethic)
+        if rating.comment:
+            comments.append(rating.comment)
+            
+    #calculate averages
+    avg_cooperation = sum(cooperation) / len(cooperation) if cooperation else 0
+    avg_conceptual = sum(conceptual) / len(conceptual) if conceptual else 0
+    avg_practical = sum(practical) / len(practical) if practical else 0
+    avg_work_ethic = sum(work_ethic) / len(work_ethic) if work_ethic else 0
+    overall_avg = (avg_cooperation + avg_conceptual + avg_practical + avg_work_ethic) / 4 if ratings else 0
+    
+    #put all comments in a string
+    all_comments = " | ".join(comments) if comments else "No comments"
+    
+    #write everything in a row
+    writer.writerow([
+        "Anonymous",
+        avg_cooperation,
+        avg_conceptual,
+        avg_practical,
+        avg_work_ethic,
+        all_comments,
+        overall_avg
+    ])
+    
+    #return response since it's a file download
     return response
 
 def createGroupPage(request):

@@ -1,0 +1,138 @@
+/* Full-page Background */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'New Century Schoolbook', serif;
+    background-color: #e9d4f9;
+    color: #333;
+}
+
+.toCenter {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'New Century Schoolbook', serif;
+    background-color: #e9d4f9;
+    color: #333;
+}
+
+table {
+    width: 60%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ab34fa;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #d5b5f7;
+}
+
+/* Header */
+header {
+    display: flex;
+    align-items: center;
+    padding: 20px 30px;
+    background-color: #ca9af1;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    justify-content: center; /* Centers all header content */
+    position: relative;
+}
+
+/* Logo Container */
+.logo-container {
+    position: absolute;
+    left: 30px; /* Shift towards the left */
+    top: 20px;
+}
+
+.logo {
+    width: 300px; /* Larger logo size */
+    height: auto;
+}
+
+/* Centered Title and Subtitle */
+.header-content {
+    text-align: center;
+}
+
+.header-content h1 {
+    font-size: 32px; /* Larger font size for title */
+    margin: 0;
+}
+
+.header-content p {
+    font-size: 18px; /* Larger font size for subtitle */
+    margin: 5px 0 0;
+}
+
+/* Settings Button Position */
+.settings {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+}
+
+.settings button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.back-btn,
+.logout-btn  {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #ac80f4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Optima', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn:hover,
+.logout-btn:hover,
+.download:hover {
+    background-color: #8b5fc6;
+    transform: translateY(-2px);
+}
+
+.download {
+    padding: 18px 36px;
+    font-size: 20px;
+    background-color: #ac80f4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Optima', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Footer */
+footer {
+    background-color: #ca9af1;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 18px; /* Increased font size */
+    width: 100%;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+}
