@@ -117,10 +117,10 @@ def instructorOverallRatings(request):
 
                 rating = ratings.filter(rater_id = teammate_id).first() #Obtain the rating of current teammate
 
-                cooperation += rating.score_cooperation if rating else None #add all ratings together
-                conceptual += rating.score_conceptual if rating else None
-                practical += rating.score_practical if rating else None
-                workethic += rating.score_workethic if rating else None
+                cooperation += rating.score_cooperation if rating else 0 #add all ratings together
+                conceptual += rating.score_conceptual if rating else 0
+                practical += rating.score_practical if rating else 0
+                workethic += rating.score_workethic if rating else 0
 
                 if rating: #increment a user that rated by 1 if they have made a rating
                     userCounter += 1

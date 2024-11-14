@@ -190,6 +190,19 @@ header {
     transform: translateY(-3px);
 }
 
+.team-block button {
+    font-size: 1rem;
+    font-family: Optima, sans-serif	;
+    color: black;
+    background-color: #c19fec;
+    border-color: #c19fec;
+}
+
+.team-block button:hover{
+    cursor: pointer;
+    color: white;
+}
+
 /* Footer */
 footer {
     background-color: #ca9af1;
