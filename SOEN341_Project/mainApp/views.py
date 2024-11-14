@@ -84,7 +84,7 @@ def instructorTeamRatingsDownload(request, team_id):
     #placeholder
     return render(request, 'mainApp/instructorTeamRatings.html')
 
-def instructorOverallRatings(request):
+def ratingLogicOverall(request):
     #get all projects assigned to given instructor
     user_id = request.session.get('user_id')
     instructor_projects = Projects.objects.filter(instructor_id=user_id)
@@ -126,13 +126,20 @@ def instructorOverallRatings(request):
                     userCounter += 1
 
             if userCounter != 0: #If current student has been rated, make an average of all individual scores
-                cooperation /= userCounter
-                conceptual /= userCounter
-                practical /= userCounter
-                workethic /= userCounter
+                cooperation = round(cooperation/userCounter, 2)
+                conceptual = round(conceptual/userCounter, 2)
+                practical = round(practical/userCounter, 2)
+                workethic = round(workethic/userCounter, 2)
+            
 
-            average = (cooperation + conceptual + practical + workethic)/4 #Calculate overall average
+            average = round((cooperation + conceptual + practical + workethic)/4, 2) #Calculate overall average
 
+            if (conceptual or cooperation or practical or workethic) == 0:
+                conceptual = "-"
+                cooperation = "-"
+                practical = "-"
+                workethic = "-"
+                average = "-"
 
             rating_data = { #Create rating data structure
                 'id': currentUserID,
@@ -148,12 +155,22 @@ def instructorOverallRatings(request):
             }
 
             rating_info.append(rating_data) #add rating of student to list
+    return rating_info
 
-    return render(request, 'mainApp/instructorOverallRatings.html', {'ratings': rating_info})
+def instructorOverallRatings(request): #simply returns a render of the html file with the rating calculated
+    return render(request, 'mainApp/instructorOverallRatings.html', {'ratings': ratingLogicOverall(request)})
 
 def instructorOverallRatingsDownload(request):
-    #placeholder
-    return render(request, 'mainApp/instructorOverallRatings.html')
+    if request.method == 'GET':
+        response = HttpResponse(content_type="text/csv") #Create response to download csv file
+        response['Content-Disposition'] = 'attachment; filename="userRatings.csv' #assign filename
+
+        writer = csv.writer(response)
+        ratings = ratingLogicOverall(request) #List of dicts of all overall ratings
+        for rating in ratings: #Loop through each element of ratings list and write each content of dict to row
+            writer.writerow([rating.get('id'), rating.get('username'), rating.get('name'), rating.get('team'), rating.get('cooperation'),rating.get('conceptual'), rating.get('practical'), rating.get('work_ethic'), rating.get('average'), rating.get('numOfRespondents')])
+        return response #trigger download
+
 
 def student_home_view(request):
     # Step 1: Retrieve the user ID from session

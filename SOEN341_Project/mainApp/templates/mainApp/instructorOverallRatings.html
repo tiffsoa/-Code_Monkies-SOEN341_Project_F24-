@@ -59,9 +59,10 @@
                 {% endfor %}
             </table>
             <p><p>
-            <form action="form" method="get"> 
-                <button type="submit" class="download">Download to CSV</button>
-            </form>
+            <div> 
+                {% csrf_token %}
+                <button onclick="location.href='{% url 'instructorOverallRatingsDownload'%}';" class="download">Download to CSV</button>
+            </div>
         </div>
     </body>
 
