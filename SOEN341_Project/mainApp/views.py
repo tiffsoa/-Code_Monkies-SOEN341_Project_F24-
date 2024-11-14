@@ -254,7 +254,7 @@ def studentTeamRatings(request, team_id):
     student = MyUser.objects.get(id=user_id)
     
     #get teammates'ratings for the student for this team
-    ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=student.id)
+    ratings = TeamRatings.objects.filter(team_id=team_id, rated_id=user_id)
     
     #get all teammates in team
     teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=team_id).values_list('student_id', flat=True).distinct()
@@ -263,20 +263,22 @@ def studentTeamRatings(request, team_id):
     ratings_list = []
     
     for teammate_id in teammate_ids:
-        if teammate_id==request.session.get('user_id'):
+        if teammate_id==user_id:
             continue
         
         teammate = MyUser.objects.get(id=teammate_id)
         
         rating = ratings.filter(rater_id=teammate_id).first()
         
+
         #data for each teammate
         rating_data = {
             "Name": teammate.username,
             "Cooperation": rating.score_cooperation if rating else None,
+            "conceptual": rating.score_conceptual if rating else None,
             "Practical": rating.score_practical if rating else None,
-            "Work Ethic": rating.score_workethic if rating else None,
-            "Comments": rating.comment if rating else "",
+            "work_ethic": rating.score_workethic if rating else None,
+            "comments": rating.comment if rating else "",
         }
         
         #calculate average score
@@ -288,15 +290,15 @@ def studentTeamRatings(request, team_id):
                 rating.score_workethic
             ]
             
-            rating_data["Average Accross All"] = sum(rating_values) / len(rating_values)
+            rating_data["average_across_all"] = sum(rating_values) / len(rating_values)
             
         else:
-            rating_data["Average Accross All"] = None
+            rating_data["average_across_all"] = None
             
         #add to the main list
         ratings_list.append(rating_data)
     
-    return render(request, 'mainApp/studentTeamRatings.html', {'team_id': team_id})
+    return render(request, 'mainApp/studentTeamRatings.html', {'team_id': team_id,'ratings':ratings_list})
 
 def studentTeamRatingsDownload(request, team_id):
     #current user's id
