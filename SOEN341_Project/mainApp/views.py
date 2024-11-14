@@ -78,7 +78,7 @@ def CloseOpenTeam(request, team_id):
 
 def instructorTeamRatings(request, team_id):
     #placeholder
-    return render(request, 'mainApp/instructorTeamRatings.html')
+    return render(request, 'mainApp/instructorTeamRatings.html', {'team_id': team_id})
 
 def instructorTeamRatingsDownload(request, team_id):
     #placeholder
@@ -296,7 +296,7 @@ def studentTeamRatings(request, team_id):
         #add to the main list
         ratings_list.append(rating_data)
     
-    return render(request, 'mainApp/studentTeamRatings.html')
+    return render(request, 'mainApp/studentTeamRatings.html', {'team_id': team_id})
 
 def studentTeamRatingsDownload(request, team_id):
     #current user's id

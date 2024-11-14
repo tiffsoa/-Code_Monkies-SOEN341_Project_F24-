@@ -54,9 +54,10 @@
         </table>
 
         <!-- Button to download the ratings as a CSV file -->
-        <form action="{% url 'studentTeamRatingsDownload' team_id %}" method="get">
-            <button type="submit" class="download">Download to CSV</button>
-        </form>
+        <div> 
+            {% csrf_token %}
+            <button onclick="location.href='{% url 'studentTeamRatingsDownload' team_id%}';" class="download">Download to CSV</button>
+        </div>
     </div>
 
     <!-- Footer Section -->
