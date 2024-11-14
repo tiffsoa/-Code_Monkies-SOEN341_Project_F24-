@@ -84,7 +84,7 @@ def instructorTeamRatingsDownload(request, team_id):
     #placeholder
     return render(request, 'mainApp/instructorTeamRatings.html')
 
-def instructorOverallRatings(request):
+def ratingLogicOverall(request):
     #get all projects assigned to given instructor
     user_id = request.session.get('user_id')
     instructor_projects = Projects.objects.filter(instructor_id=user_id)
@@ -140,8 +140,6 @@ def instructorOverallRatings(request):
                 practical = "-"
                 workethic = "-"
                 average = "-"
-            
-
 
             rating_data = { #Create rating data structure
                 'id': currentUserID,
@@ -157,12 +155,23 @@ def instructorOverallRatings(request):
             }
 
             rating_info.append(rating_data) #add rating of student to list
+    return rating_info
 
-    return render(request, 'mainApp/instructorOverallRatings.html', {'ratings': rating_info})
+def instructorOverallRatings(request):
+    return render(request, 'mainApp/instructorOverallRatings.html', {'ratings': ratingLogicOverall(request)})
 
 def instructorOverallRatingsDownload(request):
     #placeholder
-    return render(request, 'mainApp/instructorOverallRatings.html')
+    if request.method == 'GET':
+        response = HttpResponse(content_type="text/csv")
+        response['Content-Disposition'] = 'attachment; filename="userRatings.csv'
+
+        writer = csv.writer(response)
+        ratings = ratingLogicOverall(request)
+        for rating in ratings:
+            writer.writerow([rating.get('id'), rating.get('username'), rating.get('name'), rating.get('team'), rating.get('cooperation'),rating.get('conceptual'), rating.get('practical'), rating.get('work_ethic'), rating.get('average'), rating.get('numOfRespondents')])
+        return response
+
 
 def student_home_view(request):
     # Step 1: Retrieve the user ID from session
