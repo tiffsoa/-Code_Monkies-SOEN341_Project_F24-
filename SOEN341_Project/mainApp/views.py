@@ -221,6 +221,24 @@ def viewTeam(request, team_id):
 
 def instructorViewTeam(request, team_id):
     user_id = request.session.get('user_id')  # get logged-in user's ID from session
+    error=""
+    success=""
+    if request.method == 'POST':
+        # Extract data from the HTML form
+        username = request.POST.get('username')
+
+        #Search for a match in our database
+        if MyUser.objects.filter(username=username, instructor=0).exists():
+            #if match found
+            new_user_id=MyUser.objects.get(username=username).id
+            # check if student already in taem
+            if Projects_to_Student_Relationships.objects.filter(project_id=team_id, student_id=new_user_id).exists():
+                error=f"Student {request.POST.get('username')} is already in this team."
+            else:
+                Projects_to_Student_Relationships.objects.create(project_id=team_id, student_id=new_user_id)
+                success="New user added successfully!"
+        else:   
+            error=f"Student {request.POST.get('username')} does not exist."
 
     teamName = Projects.objects.get(id = team_id).project_name # get team name
 
@@ -234,7 +252,7 @@ def instructorViewTeam(request, team_id):
         student_list.append({student.name: student.id})
 
     # Pass the student list to the front-end (in a list of maps)
-    context = {'students': student_list, 'teamName': teamName, 'teamID': team_id}
+    context = {'students': student_list, 'teamName': teamName, 'teamID': team_id,"error":error, "success":success}
     #i.e. context looks something like {'students':["name1":id1,"name2":id2,"name3",id3]}
     return render(request, 'mainApp/instructors_students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
 
@@ -559,12 +577,20 @@ def RemoveStudent(request,team_id,teammate_id):
 
     return redirect("instructorViewTeam", team_id=team_id)
 
+def deleteTeam(request, team_id ):
+    #Delete all students from team
+    Projects_to_Student_Relationships.objects.filter(project_id=team_id).delete()
 
-#Mohammed Part for csv 
+    #Delete all ratings from team
+    TeamRatings.objects.filter(team_id=team_id).delete()
+
+    #Delete the team
+    Projects.objects.filter(id=team_id).delete()
+
+    return redirect("instructorHomePage")
 
 
-
-
+    
 def instructorTeamRatings(request, team_id):
     # Retrieve ratings for each member of the team
     teammate_ids = Projects_to_Student_Relationships.objects.filter(project_id=team_id).values_list('student_id', flat=True).distinct()

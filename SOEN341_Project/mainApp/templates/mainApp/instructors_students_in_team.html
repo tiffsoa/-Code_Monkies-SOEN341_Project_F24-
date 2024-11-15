@@ -33,9 +33,38 @@
             {% endfor %}
         {% endfor %}
     </div>
-
+    <div id="students">
+        <form class="insert-form" method="POST">
+            {% csrf_token %}
+            <br>
+        Add a new student:
+        <br>
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            
+            
+            <button type="submit">Add</button>
+    
+            {% if error %}
+            <div style="color:red;"><br>{{ error }}</div>
+            {% endif %}
+            
+            {% if success %}
+            <div style="color:green;"><br>{{ success }}</div>
+            {% endif %}
+        </form>
+    </div>
+    <div>
+        <button type="button" onclick="confirmDelete()" class="delete-team-btn">Delete Team</button>
+    </div>
     <footer>
         <p>© 2024 Peer Assessment Platform. All rights reserved.</p>
     </footer>
+    <script>
+        function confirmDelete() {
+            if (confirm("Are you sure you want to delete this team?")) {
+                location.href = "{% url 'deleteTeam' teamID %}";
+            }
+        }
+    </script>
 </body>
 </html>
