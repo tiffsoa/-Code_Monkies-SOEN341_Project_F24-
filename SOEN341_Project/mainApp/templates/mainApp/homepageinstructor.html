@@ -28,8 +28,8 @@
                 <div class="team-block">
                     <a>
                         <h3>{{ project.project_name }}</h3>
-                        <h3>{{ project.is_open|yesno:"Open,Closed" }}</h3>
-                        <button type="button" onclick="location.href='{% url 'instructorViewTeam' project.project_id %}';"> View Team members </button>
+                        <br>
+                        <button type="button" onclick="location.href='{% url 'instructorViewTeam' project.project_id %}';"> Edit Team </button>
                         <button type="button" onclick="location.href='{% url 'instructorTeamRatings' project.project_id %}';"> See ratings </button>
                     </a>                       
                 </div>
