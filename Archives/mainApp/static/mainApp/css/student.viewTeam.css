@@ -1,0 +1,112 @@
+body {
+    font-family: New Century Schoolbook, serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e4f1fe;
+    color: #333;
+}
+
+header {
+    display: flex; 
+    align-items: center; 
+    text-align: center;
+    background-color: #82acff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: white;
+    padding: 10px;
+}
+
+img {
+    max-width:100%;
+    height:auto;
+    max-height:100%;
+}
+
+.logo {
+    width:40vw;
+}
+
+.header-content {
+    flex-grow: 0.5; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.settings {
+    margin-left: auto;
+}
+
+
+.settings button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.back-btn,
+.logout-btn {
+    padding: 12px;
+    font-size: 16px;
+    
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Optima', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-btn:hover,
+.logout-btn:hover {
+    background-color: #5b91fd;
+    transform: translateY(-2px);
+}
+
+
+h1 {
+    margin: 0; 
+    text-align: center; 
+}
+
+#students {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    margin: 0 auto; 
+    text-align: center; 
+    max-width: 300px; /* Adjust as needed */
+    width: 100%; /* Ensures it doesn't exceed max-width */
+    padding: 10px;
+    border: 1px solid #ddd; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+button {
+    font-size: medium;
+    padding: 6px;
+    background-color:#82acfe;
+    border-color:#82acfe;
+}
+
+button:hover{
+    cursor: pointer;
+    color: white;;
+}
+
+footer {
+    background-color: #82acff;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    font-size: 18px; 
+    width: 100%;
+}

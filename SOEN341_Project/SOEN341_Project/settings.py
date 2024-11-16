@@ -126,7 +126,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 STATICFILES_DIRS = [
-    BASE_DIR / "mainApp/static",  # Adjust to your app's static directory
+    BASE_DIR / "static",  # Adjust to your app's static directory
 ]
 
 # Default primary key field type
