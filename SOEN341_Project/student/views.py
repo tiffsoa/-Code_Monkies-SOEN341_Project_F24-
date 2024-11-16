@@ -10,7 +10,7 @@ from userAuth.models import *
 #This page has all the functions whose job is to return an HTML page when executed.
 #Note that all variables which we want to keep attributed to a certain user is saved in the dictionary "session" https://reintech.io/blog/working-with-sessions-in-django-tutorial
 
-def student_home_view(request):
+def studentHomeView(request):
     # Step 1: Retrieve the user ID from session
     user_id = request.session.get('user_id')
     
@@ -59,7 +59,7 @@ def viewTeam(request, team_id):
     # Pass the student list to the front-end (in a list of maps)
     context = {'students': student_list, 'teamName': teamName, 'teamID': team_id}
     #i.e. context looks something like {'students':["name1":id1,"name2":id2,"name3",id3]}
-    return render(request, 'student/students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
+    return render(request, 'student/studentsInTeam.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
 
 def studentTeamRatings(request, team_id):
     #given a student on this page, compile all results for student n from all the members in their team. If a teammate hasn't 

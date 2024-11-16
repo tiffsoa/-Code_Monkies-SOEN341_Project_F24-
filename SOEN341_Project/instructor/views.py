@@ -12,7 +12,7 @@ import csv
 #Note that all variables which we want to keep attributed to a certain user is saved in the dictionary "session" https://reintech.io/blog/working-with-sessions-in-django-tutorial
 
 
-def instructor_home_view(request):
+def instructorHomeView(request):
     # Step 1: Retrieve the user ID from session
     user_id = request.session.get('user_id')
     
@@ -164,7 +164,7 @@ def instructorViewTeam(request, team_id):
     # Pass the student list to the front-end (in a list of maps)
     context = {'students': student_list, 'teamName': teamName, 'teamID': team_id,"error":error, "success":success}
     #i.e. context looks something like {'students':["name1":id1,"name2":id2,"name3",id3]}
-    return render(request, 'instructor/instructors_students_in_team.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
+    return render(request, 'instructor/instructorEditTeam.html', context) ### NEED TO MODIFY STUDENTS_IN_TEAM DEPENDING ON THE NAME THE FRONTEND GIVES THE PAGE
 
 def createGroupPage(request):
     if request.method == 'POST':

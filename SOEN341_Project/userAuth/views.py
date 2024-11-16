@@ -4,7 +4,7 @@ from .models import *
 
 # Create your views here.
 
-def login_view(request):
+def loginView(request):
     if request.method == 'POST':
         # Extract data from the HTML form
         username = request.POST.get('username')
@@ -18,7 +18,7 @@ def login_view(request):
             request.session['user_id'] = user.id # And then we want to save the logged in user's id, so we store it in our 'session' dictionary (each user has a unique one)
             request.session['name']= user.name
             
-            return redirect_after_login(user)
+            return redirectAfterLogin(user)
         
         else:
             return render(request, 'userAuth/login.html', {'error': 'Account not found'})
@@ -27,7 +27,7 @@ def login_view(request):
         #We should return an error message too!
         return render(request, 'userAuth/login.html', {'session':request.session, 'error':""})  # This returns to the user (request) the html file ( in mainApp/register.html) along with the data saved in our session dictionary ('session') which we can use in register.html
 
-def redirect_after_login(user):
+def redirectAfterLogin(user):
     #Redirect to the right home page depending on user (student or instructor)
     if user.instructor == True:
         return redirect('instructorHomePage') #Redirect to instructor home page

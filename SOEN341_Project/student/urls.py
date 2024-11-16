@@ -5,7 +5,7 @@ from .views import *
 #this is where we create our url routes then we will connect them to our views
 
 urlpatterns = [
-    path('/home/', student_home_view, name='studentHomePage'),
+    path('/home/', studentHomeView, name='studentHomePage'),
     path('/home/logout', logout, name='logout'),
     path('/viewTeam/<int:team_id>', viewTeam, name='viewTeam'),
     path('/teamRatings/<int:team_id>', studentTeamRatings, name='studentTeamRatings'),
