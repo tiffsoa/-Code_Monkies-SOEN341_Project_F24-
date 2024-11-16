@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Group</title>
+    <link rel="stylesheet" href="{% static '/css/instructor/create_group.css' %}">
+</head>
+<body>
+    <div class="center-box">
+        <!-- Logo and Title -->
+        <img src="{% static 'images/logo.png' %}" alt="Concordia University Logo" class="logo">
+
+        <h2>Create a New Group</h2>
+
+        <!-- Error and Success Messages -->
+        {% if error %}
+            <div style="color:red;"><br>{{ error }}</div>
+        {% endif %}
+
+        {% if success %}
+            <div style="color:green;"><br>{{ success }}</div>
+        {% endif %}
+
+        <!-- CSV Upload Form -->
+        <h3>Upload CSV File to Create Group</h3>
+
+            <form action="{% url 'createGroup' %}" method="post" class="create-group-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="csv_file" id="csv_file" accept=".csv" required>
+                <button type="submit">Upload CSV</button>
+            </form>
+
+        <!-- Divider -->
+        <hr>
+
+        <!-- Manual Create Group Form -->
+        <h3>Manually Create a Group</h3>
+        <form action="{% url 'createGroup' %}" method="post" class="create-group-form">
+            {% csrf_token %}
+            
+            <!-- Group Name -->
+            <input type="text" name="project_name" id="project_name" placeholder="Group Name" required>
+            
+            <!-- Dynamic Usernames -->
+            <div id="usernames">
+                <input type="text" name="user_name[]" placeholder="Enter username" required>
+            </div>
+            <button type="button" class="add-btn" onclick="addUsernameField()">Add another user</button>
+            
+            <!-- Submit Button -->
+            <button type="submit">Create Group</button>
+        </form>
+
+        <!-- Navigation Links -->
+        <button onclick="window.location.href='{% url 'instructorHomePage' %}'" class="back-btn">Back to Instructor Page</button>
+        <button type="button" onclick="location.href='{% url 'logout' %}';" class="back-btn">Logout</button>
+        
+    </div>
+
+    <script>
+        function addUsernameField() {
+            const usernamesDiv = document.getElementById("usernames");
+            const newField = document.createElement("input");
+            newField.setAttribute("type", "text");
+            newField.setAttribute("name", "user_name[]");
+            newField.setAttribute("placeholder", "Enter username");
+            usernamesDiv.appendChild(newField);
+        }
+    </script>
+</body>
+</html>

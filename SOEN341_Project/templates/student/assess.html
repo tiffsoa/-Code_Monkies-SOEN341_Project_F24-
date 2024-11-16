@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Peer Assessment - Student Homepage</title>
+    {% load static %}
+    <!-- for every html file, do not forget "{% load static %}" as our css and images are in the static folder-->
+    <link rel="stylesheet" href="{% static 'css/student/assess.css' %}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header>
+        <img style="max-width: 400px;"src="{% static 'images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        <div class="header-content">
+            <h1>Peer Assessment</h1><br>
+            <p>Assess the student's performance. </p>
+        </div>
+        <div class="settings">
+            <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
+            <button type=“button” onclick="location.href='{% url 'logout' %}';"> Logout </button>
+        </div>
+    </header>
+    
+    <div id="students">
+        {% for student in students %}
+            {% for name, id in student.items %}
+                <p>Name: {{ name }}, ID: {{ id }}, in team {{ teamName }}</p>
+            {% endfor %}
+        {% endfor %}
+        {% if error %}
+            <div style="color:red;"><br>{{ error }}</div>
+            {% endif %}
+        <div class="rating-group">
+            <form method="POST">
+                {% csrf_token %}
+            <p>Cooperation: </p>
+            <input type="radio" id="cooperation5" name="Cooperation" value="5">
+            <label for="cooperation5">5</label>
+            <input type="radio" id="cooperation4" name="Cooperation" value="4">
+            <label for="cooperation4">4</label>
+            <input type="radio" id="cooperation3" name="Cooperation" value="3">
+            <label for="cooperation3">3</label>
+            <input type="radio" id="cooperation2" name="Cooperation" value="2">
+            <label for="cooperation2">2</label>
+            <input type="radio" id="cooperation1" name="Cooperation" value="1">
+            <label for="cooperation1">1</label>
+
+            <p>Conceptual Contribution: </p>
+            <input type="radio" id="conceptual5" name="ConceptualContribution" value="5">
+            <label for="conceptual5">5</label>
+            <input type="radio" id="conceptual4" name="ConceptualContribution" value="4">
+            <label for="conceptual4">4</label>
+            <input type="radio" id="conceptual3" name="ConceptualContribution" value="3">
+            <label for="conceptual3">3</label>
+            <input type="radio" id="conceptual2" name="ConceptualContribution" value="2">
+            <label for="conceptual2">2</label>
+            <input type="radio" id="conceptual1" name="ConceptualContribution" value="1">
+            <label for="conceptual1">1</label>
+
+            <p>Practical Contribution: </p>
+            <input type="radio" id="practical5" name="PracticalContribution" value="5">
+            <label for="practical5">5</label>
+            <input type="radio" id="practical4" name="PracticalContribution" value="4">
+            <label for="practical4">4</label>
+            <input type="radio" id="practical3" name="PracticalContribution" value="3">
+            <label for="practical3">3</label>
+            <input type="radio" id="practical2" name="PracticalContribution" value="2">
+            <label for="practical2">2</label>
+            <input type="radio" id="practical1" name="PracticalContribution" value="1">
+            <label for="practical1">1</label>
+
+            <p>Work Ethic: </p>
+            <input type="radio" id="ethic5" name="WorkEthic" value="5">
+            <label for="ethic5">5</label>
+            <input type="radio" id="ethic4" name="WorkEthic" value="4">
+            <label for="ethic4">4</label>
+            <input type="radio" id="ethic3" name="WorkEthic" value="3">
+            <label for="ethic3">3</label>
+            <input type="radio" id="ethic2" name="WorkEthic" value="2">
+            <label for="ethic2">2</label>
+            <input type="radio" id="ethic1" name="WorkEthic" value="1">
+            <label for="ethic1">1</label> <br><br>
+        </div>
+        Comments:
+        <br>
+        <textarea name="message" rows="10" cols="30">
+        </textarea>    
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+</body>
+</html>

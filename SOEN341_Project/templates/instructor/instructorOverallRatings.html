@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Peer Assessment - Student Homepage</title>
+    {% load static %}
+    <!-- for every html file, do not forget "{% load static %}" as our css and images are in the static folder-->
+    <link rel="stylesheet" href="{% static 'css/instructor/instructorOverallRatings.css' %}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{% static 'images/logo.png' %}" alt="Concordia University Logo" class="logo">
+        </div>
+        <div class="header-content">
+            <h1>Peer Assessment</h1><br>
+            <p>Here are the Overall Ratings for all students! You are able to export the data in a CSV file. </p>
+        </div>
+        <div class="settings">
+            <button style="font-size:20px"><i class="fa fa-gear"></i></button>
+            <button type="button" onclick="location.href='{% url 'logout' %}';" class="logout-btn">Logout</button>
+        </div>
+    </header>
+    
+    <body>
+        <div class="toCenter"> 
+            <h2>Instructor Overall Ratings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Team</th>
+                        <th>Cooperation</th>
+                        <th>Conceptual Contribution</th>
+                        <th>Practical Contribution</th>
+                        <th>Work Ethic</th>
+                        <th>Average</th>
+                        <th>Peers who Responded</th>
+                    </tr>
+                </thead>
+                {% for student in ratings %}
+                    <tbody>
+                        <td>{{ student.id }}</td>
+                        <td>{{ student.username }}</td>
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.team }}</td>
+                        <td>{{ student.cooperation }}</td>
+                        <td>{{ student.conceptual }}</td>
+                        <td>{{ student.practical }}</td>
+                        <td>{{ student.work_ethic }}</td>
+                        <td>{{ student.average }}</td>
+                        <td>{{ student.numOfRespondents }}</td>
+                    </tbody>
+                {% endfor %}
+            </table>
+            <p><p>
+            <div> 
+                {% csrf_token %}
+                <button onclick="location.href='{% url 'instructorOverallRatingsDownload'%}';" class="download">Download to CSV</button>
+            </div>
+        </div>
+    </body>
+
+    <footer>
+        <p>© 2024 Peer Assessment Platform. All rights reserved.</p>
+    </footer>
+</body>
+</html>

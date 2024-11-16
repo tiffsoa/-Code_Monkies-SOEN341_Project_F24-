@@ -1,0 +1,134 @@
+/* Full-page Background */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'New Century Schoolbook', serif;
+    background-color: #f3eafc;
+    color: #333;
+}
+
+/* Centered Container */
+.center-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+}
+
+/* Logo */
+.logo {
+    width: 400px; /* Increased size for larger appearance */
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Divider */
+.center-box hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* Form Titles */
+.center-box h3 {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Form and Button Styles */
+.csv-upload-form,
+.create-group-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.csv-upload-form input[type="file"],
+.create-group-form input[type="text"] {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #f8f8fc;
+    transition: border-color 0.3s ease;
+}
+
+.csv-upload-form input[type="file"]:focus,
+.create-group-form input[type="text"]:focus {
+    border-color: #a0b3c5;
+    outline: none;
+}
+
+/* Primary Button Styles */
+.csv-upload-form button,
+.create-group-form button,
+.back-btn,
+.add-btn {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Optima', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.csv-upload-form button:hover,
+.create-group-form button:hover,
+.back-btn:hover,
+.add-btn:hover {
+    background-color: #357abd;
+    transform: translateY(-2px);
+}
+
+/* Add User Button */
+.add-btn {
+    background-color: #28a745;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.add-btn:hover {
+    background-color: #1e7a38;
+}
+
+/* Back Button & Logout Button */
+.back-btn {
+    background-color: #6c757d;
+    color: #fff;
+    margin-top: 10px;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+
+/* Error and Success Messages */
+.error, .success {
+    font-size: 14px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.error {
+    color: red;
+}
+
+.success {
+    color: green;
+}
