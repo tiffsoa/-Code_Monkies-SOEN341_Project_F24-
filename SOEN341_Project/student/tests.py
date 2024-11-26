@@ -43,7 +43,7 @@ class submitRatingTest(TestCase):
         session.save()
 
     def test_submit_rating_successful(self):
-        response=self.client.post(reverse('RateTeammate',args=[self.group.id,self.group.id]),{
+        response=self.client.post(reverse('RateTeammate',args=[self.group.id,self.student.id]),{
             "Cooperation":"5",
             "ConceptualContribution":"3",
             "PracticalContribution":"2",
@@ -52,4 +52,12 @@ class submitRatingTest(TestCase):
         
         # Check if the user is redirected 
         self.assertEqual(response.status_code, 302)
+    
+    def test_view_rating(self):
+        response = self.client.post(reverse('studentTeamRatings', args={self.group.id}))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_view_ratingDownload(self):
+        response = self.client.post(reverse('studentTeamRatingsDownload', args={self.group.id}))
+        self.assertEqual(response.status_code, 200)
     

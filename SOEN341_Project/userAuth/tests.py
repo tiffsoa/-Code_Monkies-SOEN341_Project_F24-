@@ -73,7 +73,6 @@ class registerViewTest(TestCase):
             'role':"teacher",
         })
         
-
         # Check if the user is redirected 
         self.assertEqual(response.status_code, 200)
 

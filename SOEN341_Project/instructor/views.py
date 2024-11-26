@@ -128,6 +128,7 @@ def instructorOverallRatingsDownload(request):
         for rating in ratings: #Loop through each element of ratings list and write each content of dict to row
             writer.writerow([rating.get('id'), rating.get('username'), rating.get('name'), rating.get('team'), rating.get('cooperation'),rating.get('conceptual'), rating.get('practical'), rating.get('work_ethic'), rating.get('average'), rating.get('numOfRespondents')])
         return response #trigger download
+    return render(request, 'instructor/instructorOverallRatings.html', {'ratings': ratingLogicOverall(request)})
 
 def instructorViewTeam(request, team_id):
     user_id = request.session.get('user_id')  # get logged-in user's ID from session
