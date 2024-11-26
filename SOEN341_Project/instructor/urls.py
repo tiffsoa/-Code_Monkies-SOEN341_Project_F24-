@@ -14,5 +14,6 @@ urlpatterns = [
     path('/viewTeam/<int:team_id>', instructorViewTeam, name='instructorViewTeam'),
     path('/createGroup/', createGroupPage, name='createGroup'),
     path('/viewTeam/<int:team_id>/<int:teammate_id>',RemoveStudent, name="RemoveStudent"),
-    path('/viewTeam/deleteTeam/<int:team_id>', deleteTeam, name="deleteTeam")
+    path('/viewTeam/deleteTeam/<int:team_id>', deleteTeam, name="deleteTeam"),
+    path('/settings', instructorSettings, name="instructorSettings")
 ]

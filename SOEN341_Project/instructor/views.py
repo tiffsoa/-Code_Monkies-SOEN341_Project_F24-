@@ -388,3 +388,6 @@ def instructorTeamRatingsDownload(request, team_id):
 
     return response
 
+def instructorSettings(request):
+    #insert logic
+    return render(request, 'instructor/instructorSettings.html', {'session': request.session})

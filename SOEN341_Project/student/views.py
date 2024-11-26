@@ -220,3 +220,7 @@ def logout(request):
         del request.session['name']
         # Logout message to be revisited for a later sprint: return render(request, 'mainApp/login.html', {'session': request.session, 'success': "Logout successsful"})
         return redirect('login')
+
+def studentSettings(request):
+    #insert logic
+    return render(request, 'student/studentSettings.html', {'session': request.session})

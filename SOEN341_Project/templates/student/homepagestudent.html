@@ -21,7 +21,7 @@
         </div>
         <!--The settings, logout button and others are just for the layout for the moment, they will hold a function for the next sprints.-->
         <div class="settings">
-            <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
+            <button style="font-size:20px" onclick="location.href='{% url 'studentSettings' %}';"> <i class="fa fa-gear"></i></button>
             <button type=“button” onclick="location.href='{% url 'logout' %}';" class="logout-btn"> Logout </button>
         </div>
     </header>
