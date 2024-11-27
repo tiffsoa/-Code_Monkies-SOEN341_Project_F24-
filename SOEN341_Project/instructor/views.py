@@ -176,9 +176,12 @@ def createGroupPage(request):
             if csv_file.multiple_chunks(): #if the file is too large
                 return render(request, 'instructor/createGroup.html', {'error': 'File is too large'})
 
-            file_data = csv_file.read().decode("utf-8")	#read the file	
+            file_data = csv_file.read().decode("utf-8")	#read the file
 
-            lines = file_data.split("\n")
+
+            lines = file_data.split("\r\n") #split the file data by carriageline and newline
+            
+            print(lines)
 
             for line in lines:	#loop over the lines and save them in db.
                 line = line.strip()  # Remove any leading/trailing whitespace
@@ -195,16 +198,18 @@ def createGroupPage(request):
                         id = userExists.id
                         idList.append(id)
                     else:
-                        return render(request, 'instructor/createGroup.html', {'error': groupName + 'has not been added because user' + user + 'does not exist.'}) #Error message if user doesn't exist
+                        return render(request, 'instructor/createGroup.html', {'error': groupName + 'has not been added because user ' + user + ' does not exist.'}) #Error message if user doesn't exist
                 newProject = Projects(project_name = groupName, instructor_id  = request.session.get('user_id'))
                 newProject.save() #Saving project to database
 
                 projectID = newProject.id #Retrieve new project id
 
                 for id in idList: #iterate through all ids and create their relationship with their respective projects
-                        projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
-                        projectStudent.save()
-                return redirect('instructorHomePage')
+                    projectStudent = Projects_to_Student_Relationships(project_id = projectID, student_id = id)
+                    projectStudent.save()
+
+                if line == lines[len(lines) - 1]: #If the line is the last line, return back to the home page
+                    return redirect('instructorHomePage')
             return render(request, 'instructor/createGroup.html', {'session': request.session})
         
         projectName = request.POST.get('project_name')
