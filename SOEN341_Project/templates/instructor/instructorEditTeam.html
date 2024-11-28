@@ -17,7 +17,7 @@
             <p>Here are the students in the team. Click on <i>Assess Student</i> to rate their performance. </p>
         </div>
         <div class="settings">
-            <button style="font-size:20px"> <i class="fa fa-gear"></i></button>
+            <button style="font-size:20px" onclick="location.href='{% url 'instructorSettings' %}';"><i class="fa fa-gear"></i></button>
             <button type=“button” onclick="location.href='{% url 'logout' %}';" class="logout-btn"> Logout </button>
         </div>
     </header>
