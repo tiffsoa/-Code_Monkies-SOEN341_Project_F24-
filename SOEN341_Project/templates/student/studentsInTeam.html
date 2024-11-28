@@ -29,6 +29,10 @@
             <div>
                 <p>Name: {{ name }}, ID: {{ id }}</p>
                 <button type=“button” onclick="location.href='{% url 'RateTeammate' teamID id %}';">Assess Student</button>
+                <br> 
+                <div>
+                    <button type="button" onclick="location.href='{% url 'studentHomePage' %}';" class="back-btn">Return to Homepage</button>
+                </div>
             </div>
             {% endfor %}
         {% endfor %}

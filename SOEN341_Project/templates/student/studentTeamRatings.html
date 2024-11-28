@@ -58,6 +58,10 @@
         <div> 
             {% csrf_token %}
             <button onclick="location.href='{% url 'studentTeamRatingsDownload' team_id%}';" class="download">Download to CSV</button>
+            <br>
+            <div>
+                <button type="button" onclick="location.href='{% url 'studentHomePage' %}';" class="back-btn">Return to Homepage</button>
+            </div>
         </div>
     </div>
 
