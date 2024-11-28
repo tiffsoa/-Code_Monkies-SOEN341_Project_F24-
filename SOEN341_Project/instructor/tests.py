@@ -74,3 +74,7 @@ class createGroupTest(TestCase):
     def test_overallDownload(self):
         response = self.client.post(reverse('instructorOverallRatingsDownload'))
         self.assertEqual(response.status_code, 200)
+    
+    def test_view_settingsInstructor(self):
+        response = self.client.post(reverse('instructorSettings'))
+        self.assertEqual(response.status_code, 200)

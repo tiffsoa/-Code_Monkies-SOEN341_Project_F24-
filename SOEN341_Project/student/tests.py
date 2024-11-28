@@ -61,3 +61,7 @@ class submitRatingTest(TestCase):
         response = self.client.post(reverse('studentTeamRatingsDownload', args={self.group.id}))
         self.assertEqual(response.status_code, 200)
     
+    def test_view_settingsStudent(self):
+        response = self.client.post(reverse('studentSettings'))
+        self.assertEqual(response.status_code, 200)
+    
