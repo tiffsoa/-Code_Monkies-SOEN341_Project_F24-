@@ -76,12 +76,13 @@
     
     <div class="settings-container">
         <h2>Settings</h2>
-        <form>
-            <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first-name">
+        <form method="POST">
+        {% csrf_token %}
+            <label for="first-name">Name</label>
+            <input type="text" id="first-name" name="name">
             
-            <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last-name">
+            <label for="username">Username </label>
+            <input type="text" id="last-name" name="username">
             
             <label for="email">Email</label>
             <input type="email" id="email" name="email">
@@ -94,8 +95,18 @@
             
             <button type="submit">Save</button>
         </form>
+        {% if error %}
+            <div style=“color:red;”><br>{{ error }}</div>
+            {% endif %}
+            
+            {% if success %}
+            <div style=“color:green;”><br>{{ success }}</div>
+            {% endif %}
     </div>
-
+<br>
+<br>
+<br>
+<br>
     <footer>
         <p>© 2024 Peer Assessment Platform. All rights reserved.</p>
     </footer>

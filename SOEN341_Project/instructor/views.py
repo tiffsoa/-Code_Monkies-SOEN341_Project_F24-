@@ -398,6 +398,8 @@ def instructorTeamRatingsDownload(request, team_id):
     return response
 
 def instructorSettings(request):
+    success=""
+    error=""
     # Get the current instructor ID from the session
     user_id = request.session.get('user_id')
     
@@ -408,37 +410,37 @@ def instructorSettings(request):
     instructor = MyUser.objects.get(id=user_id)
 
     if request.method == 'POST':
+        success=""
+        error=""
         # Fetch data from the POST request
         new_username = request.POST.get('username', '').strip()
         new_email = request.POST.get('email', '').strip()
-        current_password = request.POST.get('current_password', '').strip()
-        new_password = request.POST.get('new_password', '').strip()
-        confirm_password = request.POST.get('confirm_password', '').strip()
+        new_name = request.POST.get('name', '').strip()
+        new_password = request.POST.get('new-password', '').strip()
+        confirm_password = request.POST.get('confirm-password', '').strip()
         
-        # Validate current password
-        if not authenticate(username=instructor.username, password=current_password):
-            messages.error(request, "Invalid current password.")
-            return render(request, 'instructor/instructorSettings.html', {'session': request.session, 'instructor': instructor})
-        
-        # Update username and email
+        # Update username, name and email
         if new_username:
             instructor.username = new_username
         
         if new_email:
             instructor.email = new_email
 
+        if new_name:
+            instructor.name= new_name
+
         # Update password if provided
         if new_password or confirm_password:
             if new_password != confirm_password:
-                messages.error(request, "New passwords do not match.")
-                return render(request, 'instructor/instructorSettings.html', {'session': request.session, 'instructor': instructor})
+                error= "New passwords do not match."
+                return render(request, 'instructor/instructorSettings.html', {'session': request.session, 'instructor': instructor,'success':success,'error':error})
             
-            instructor.password = make_password(new_password)
+            instructor.password = new_password
         
         # Save changes to the database
         instructor.save()
-        messages.success(request, "Settings updated successfully.")
-        return redirect('instructorSettings')
+        success= "Settings updated successfully."
+        return render(request, 'instructor/instructorSettings.html', {'session': request.session, 'instructor': instructor,'success':success,'error':error})
     
     # Render the settings page with the current instructor's data
     return render(request, 'instructor/instructorSettings.html', {'session': request.session, 'instructor': instructor})

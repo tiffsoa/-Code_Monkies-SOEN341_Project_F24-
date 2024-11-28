@@ -227,50 +227,47 @@ def logout(request):
 
 
 def studentSettings(request):
-    # Get the current user ID from the session
+    success=""
+    error=""
+     # Get the current student ID from the session
     user_id = request.session.get('user_id')
     
     if not user_id:
         return redirect('login')
 
-    # Fetch the current user's details
+    # Fetch the current student's details
     student = MyUser.objects.get(id=user_id)
 
     if request.method == 'POST':
         # Fetch data from the POST request
         new_username = request.POST.get('username', '').strip()
         new_email = request.POST.get('email', '').strip()
-        current_password = request.POST.get('current_password', '').strip()
-        new_password = request.POST.get('new_password', '').strip()
-        confirm_password = request.POST.get('confirm_password', '').strip()
+        new_name = request.POST.get('name', '').strip()
+        new_password = request.POST.get('new-password', '').strip()
+        confirm_password = request.POST.get('confirm-password', '').strip()
         
-        # Validate current password
-        if not authenticate(username=student.username, password=current_password):
-            messages.error(request, "Invalid current password.")
-            return render(request, 'student/studentSettings.html', {'session': request.session, 'student': student})
-        
-        # Update username and email
+        # Update username, name and email
         if new_username:
             student.username = new_username
         
         if new_email:
             student.email = new_email
 
+        if new_name:
+            student.name= new_name
+
         # Update password if provided
         if new_password or confirm_password:
             if new_password != confirm_password:
-                messages.error(request, "New passwords do not match.")
-                return render(request, 'student/studentSettings.html', {'session': request.session, 'student': student})
+                error= "New passwords do not match."
+                return render(request, 'student/studentSettings.html', {'session': request.session, 'student': student,'success':success,'error':error})
             
-            student.password = make_password(new_password)
+            student.password = new_password
         
         # Save changes to the database
         student.save()
-        messages.success(request, "Settings updated successfully.")
-        return redirect('studentSettings')
+        success= "Settings updated successfully."
+        return render(request, 'student/studentSettings.html', {'session': request.session, 'student': student,'success':success,'error':error})
     
-    # Render the settings page with the current user's data
-    return render(request, 'student/studentSettings.html', {'session': request.session, 'student': student})
-
-
-
+    # Render the settings page with the current instructor's data
+    return render(request, 'student/studentSettings.html', {'session': request.session, 'student': student, 'success':success, 'error':error})
