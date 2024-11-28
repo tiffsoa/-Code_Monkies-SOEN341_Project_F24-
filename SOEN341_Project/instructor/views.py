@@ -4,6 +4,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from userAuth.models import *
 import csv
+from django.contrib import messages
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate
 
 #this is the main file we will work on
 #here, we will create different views or routes that we can access on our website
@@ -395,5 +398,47 @@ def instructorTeamRatingsDownload(request, team_id):
     return response
 
 def instructorSettings(request):
-    #insert logic
-    return render(request, 'instructor/instructorSettings.html', {'session': request.session})
+    # Get the current instructor ID from the session
+    user_id = request.session.get('user_id')
+    
+    if not user_id:
+        return redirect('login')
+
+    # Fetch the current instructor's details
+    instructor = MyUser.objects.get(id=user_id)
+
+    if request.method == 'POST':
+        # Fetch data from the POST request
+        new_username = request.POST.get('username', '').strip()
+        new_email = request.POST.get('email', '').strip()
+        current_password = request.POST.get('current_password', '').strip()
+        new_password = request.POST.get('new_password', '').strip()
+        confirm_password = request.POST.get('confirm_password', '').strip()
+        
+        # Validate current password
+        if not authenticate(username=instructor.username, password=current_password):
+            messages.error(request, "Invalid current password.")
+            return render(request, 'instructor/instructorSettings.html', {'session': request.session, 'instructor': instructor})
+        
+        # Update username and email
+        if new_username:
+            instructor.username = new_username
+        
+        if new_email:
+            instructor.email = new_email
+
+        # Update password if provided
+        if new_password or confirm_password:
+            if new_password != confirm_password:
+                messages.error(request, "New passwords do not match.")
+                return render(request, 'instructor/instructorSettings.html', {'session': request.session, 'instructor': instructor})
+            
+            instructor.password = make_password(new_password)
+        
+        # Save changes to the database
+        instructor.save()
+        messages.success(request, "Settings updated successfully.")
+        return redirect('instructorSettings')
+    
+    # Render the settings page with the current instructor's data
+    return render(request, 'instructor/instructorSettings.html', {'session': request.session, 'instructor': instructor})
