@@ -133,3 +133,23 @@ footer {
     font-size: 18px; 
     width: 100%;
 }
+
+.back-btn {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #ac80f4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Optima', sans-serif;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px; /* Adjust spacing from the form */
+}
+
+.back-btn:hover {
+    background-color: #8b5fc6;
+    transform: translateY(-2px);
+}
