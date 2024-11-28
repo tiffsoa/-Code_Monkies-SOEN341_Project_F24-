@@ -129,3 +129,23 @@ footer {
     box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
     font-size: 18px;
 }
+.back-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #ac80f4; /* Purple background */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    text-align: center;
+    margin-top: 15px; /* Adds space above the button */
+}
+
+.back-btn:hover {
+    background-color: #8b5fc6; /* Darker purple on hover */
+    transform: translateY(-2px); /* Lift effect */
+}
+
+
