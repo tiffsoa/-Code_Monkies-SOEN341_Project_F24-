@@ -18,6 +18,9 @@
             height: 100vh;
             margin: 0;
         }
+        footer{
+            position: static;
+        }
         .settings-container {
             background-color: white;
             padding: 20px 40px;
@@ -57,6 +60,28 @@
             cursor: pointer;
             width: 100%;
         }
+
+        button,
+            .back-btn {
+                background-color: #71bdff; /* Blue color */
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                font-size: 14px;
+                border-radius: 5px;
+                cursor: pointer;
+                width: 100%;
+                transition: background-color 0.3s ease, transform 0.2s ease;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        
+            button:hover,
+            .back-btn:hover {
+                background-color: #479ad6; /* Darker blue on hover */
+                transform: translateY(-2px);
+            }
+        </style>
+        
     </style>
 </head>
 <body>
